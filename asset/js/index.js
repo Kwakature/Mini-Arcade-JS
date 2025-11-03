@@ -31,11 +31,15 @@ function initGameCarousel() {
     {
       name: "Flappy Bird",
       image: "asset/img/flapy.png",
+      imageDesktop: "asset/img/flapy.png",
+      imageMobile: "asset/img/flapy-mobile.png",
       link: "Flappy-Bird.html",
     },
     {
-      name: "pong",
-      image: "/asset/img/flapy.png",
+      name: "Pong",
+      image: "asset/img/Pong.png",
+      imageDesktop: "asset/img/Pong.png",
+      imageMobile: "asset/img/Pong.png",
       link: "fusionclicker.html",
     },
 
@@ -51,6 +55,8 @@ function initGameCarousel() {
     return;
   }
 
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+
   const state = {
     index: 0,
     animating: false,
@@ -59,6 +65,16 @@ function initGameCarousel() {
   };
 
   updateGame(0);
+
+  const handleViewportChange = () => {
+    applyPhotoSource(games[state.index]);
+  };
+
+  if (typeof mediaQuery.addEventListener === "function") {
+    mediaQuery.addEventListener("change", handleViewportChange);
+  } else {
+    mediaQuery.addListener(handleViewportChange);
+  }
 
   prevButton.addEventListener("click", () => handleNavigation(-1));
   nextButton.addEventListener("click", () => handleNavigation(1));
@@ -128,8 +144,7 @@ function initGameCarousel() {
   function updateGame(nextIndex) {
     state.index = nextIndex;
     const current = games[nextIndex];
-    photo.src = current.image;
-    photo.alt = `Illustration du jeu ${current.name}`;
+    applyPhotoSource(current);
     gameName.textContent = current.name;
 
     const isPlayable = Boolean(current.link);
@@ -137,6 +152,23 @@ function initGameCarousel() {
     playBtn.classList.toggle("is-disabled", !isPlayable);
     playBtn.setAttribute("aria-disabled", String(!isPlayable));
     playBtn.dataset.href = current.link ?? "";
+  }
+
+  function applyPhotoSource(currentGame) {
+    const isMobile = mediaQuery.matches;
+    const source = isMobile && currentGame.imageMobile
+      ? currentGame.imageMobile
+      : currentGame.imageDesktop ?? currentGame.image;
+
+    if (!source) {
+      return;
+    }
+
+    if (photo.src !== new URL(source, window.location.href).href) {
+      photo.src = source;
+    }
+    photo.dataset.variant = isMobile ? "mobile" : "desktop";
+    photo.alt = `Illustration ${isMobile ? "mobile" : "desktop"} du jeu ${currentGame.name}`;
   }
 
   function launchSelectedGame() {
@@ -147,4 +179,3 @@ function initGameCarousel() {
     window.location.href = targetUrl;
   }
 }
-
