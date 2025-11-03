@@ -22,3 +22,5 @@ document.addEventListener("DOMContentLoaded", function () {
         "<p>Impossible de charger l'en-tête.</p>";
     });
 });
+
+

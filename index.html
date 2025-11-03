@@ -4,12 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game fusion</title>
-    <link rel="stylesheet" href="style_index.css" />
+    <link rel="stylesheet" href="/asset/css/style_index.css" />
+      <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="header-placeholder"></div>
+<body>
+  <main class="container">
+    <h1 class="title neon">GAME<br/>FUSION</h1>
 
-    <h1>Bienvenue dans Game fusion</h1>
+    <h2 class="subtitle neon">SELECT<br/>GAME</h2>
+
+    <section class="selector">
+      <button id="prev" class="arrow" aria-label="Précédent" title="Jeu précédent">≪</button>
+
+      <figure class="selector-photo" aria-label="Présentation du jeu">
+        <img
+          src="asset/img/logo.png"
+          alt="Illustration du jeu sélectionné"
+          class="selector-photo-image"
+        />
+      </figure>
+
+      <button id="next" class="arrow" aria-label="Suivant" title="Jeu suivant">≫</button>
+    </section>
+
+    <!-- Nom du jeu sélectionné -->
+    <p id="gameName" class="game-name neon-text">Flappy Bird</p>
+
+    <!-- Bouton PLAY -->
+    <div class="cta-wrap">
+      <button id="playBtn" class="play-btn" aria-label="Lancer le jeu">PLAY</button>
+    </div>
+  </main>
+   
     <script src="asset/js/index.js"></script>
   </body>
 </html>
