@@ -57,41 +57,6 @@ body {
   text-align: center;
 }
 
-.sound {
-  width: 80px;
-  height: 80px;
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23888" d="M20,30 L20,70 L35,70 L55,85 L55,15 L35,30 Z"/><path fill="none" stroke="%23888" stroke-width="4" d="M65,35 Q75,50 65,65"/><path fill="none" stroke="%23888" stroke-width="4" d="M75,25 Q90,50 75,75"/></svg>');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  position: relative;
-}
-
-.sound::before {
-  content: "";
-  position: absolute;
-  inset: -10px;
-  background: linear-gradient(
-    135deg,
-    transparent 30%,
-    rgba(136, 136, 136, 0.1) 100%
-  );
-  border-radius: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.sound:hover {
-  opacity: 1;
-}
-
-.sound:hover::before {
-  opacity: 1;
-}
-
 /* Responsive */
 @media (max-width: 1024px) {
   .top-page {
@@ -108,11 +73,6 @@ body {
   .logo {
     width: 80px;
     height: 80px;
-  }
-
-  .sound {
-    width: 60px;
-    height: 60px;
   }
 }
 
@@ -132,11 +92,6 @@ body {
     width: 60px;
     height: 60px;
   }
-
-  .sound {
-    width: 50px;
-    height: 50px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -153,10 +108,5 @@ body {
   .logo {
     width: 50px;
     height: 50px;
-  }
-
-  .sound {
-    width: 40px;
-    height: 40px;
   }
 }
