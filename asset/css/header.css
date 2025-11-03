@@ -1,8 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);
+  font-family: "Sixtyfour", monospace;
+  min-height: 100vh;
+}
+
+.top-page {
+  background: linear-gradient(180deg, #1e1e3f 0%, #16162e 100%);
+  padding: 20px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+  border-radius: 50px;
+}
+
 .back-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #222;
-  color: #fff;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #4a9eff;
+  box-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
+}
+
+.site-title {
+  font-family: "Sixtyfour", monospace;
+  font-size: 72px;
+  font-weight: 400;
+  background: linear-gradient(
+    180deg,
+    #ffd700 0%,
+    #ffed4e 15%,
+    #ff8c00 35%,
+    #ff6b35 50%,
+    #ff4500 65%,
+    #cc0000 85%,
+    #8b0000 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 140, 0, 0.5);
+  letter-spacing: 8px;
+  flex: 1;
+  text-align: center;
+}
+
+.sound {
+  width: 80px;
+  height: 80px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23888" d="M20,30 L20,70 L35,70 L55,85 L55,15 L35,30 Z"/><path fill="none" stroke="%23888" stroke-width="4" d="M65,35 Q75,50 65,65"/><path fill="none" stroke="%23888" stroke-width="4" d="M75,25 Q90,50 75,75"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.sound::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(136, 136, 136, 0.1) 100%
+  );
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sound:hover {
+  opacity: 1;
+}
+
+.sound:hover::before {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .top-page {
+    margin: 15px;
+    border-radius: 40px;
+    padding: 15px 30px;
+  }
+
+  .site-title {
+    font-size: 56px;
+    letter-spacing: 6px;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .sound {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-page {
+    padding: 15px 20px;
+    margin: 12px;
+    border-radius: 30px;
+  }
+
+  .site-title {
+    font-size: 40px;
+    letter-spacing: 4px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sound {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-page {
+    margin: 10px;
+    border-radius: 25px;
+  }
+
+  .site-title {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .sound {
+    width: 40px;
+    height: 40px;
+  }
 }
