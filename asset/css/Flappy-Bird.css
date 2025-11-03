@@ -1,0 +1,405 @@
+/* Palette inspirée arcade rétro */
+:root {
+  --cabinet-blue: #0b1d3e;
+  --cabinet-blue-dark: #050b1b;
+  --cabinet-purple: #4a2fbf;
+  --cabinet-cyan: #1fa9ff;
+  --cabinet-magenta: #ff3ee3;
+  --cabinet-green: #24ff72;
+  --cabinet-yellow: #ffd000;
+  --cabinet-orange: #ff8c2d;
+  --screen-border: #242424;
+  --screen-glow: rgba(31, 169, 255, 0.3);
+  --button-red: #ff3b3b;
+  --button-yellow: #ffd000;
+  --button-blue: #2979ff;
+  --joystick-black: #0c0c0c;
+  --shadow-deep: rgba(0, 0, 0, 0.65);
+  --shadow-soft: rgba(0, 0, 0, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 62, 227, 0.2), transparent 45%),
+    radial-gradient(circle at 80% 25%, rgba(36, 255, 114, 0.2), transparent 45%),
+    linear-gradient(135deg, var(--cabinet-blue-dark), #02060f 70%);
+  font-family: "Press Start 2P", "VT323", "Courier New", Courier, monospace;
+  color: #fff;
+  letter-spacing: 0.06em;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 140, 45, 0.15), rgba(31, 169, 255, 0.1));
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.arcade-cabinet {
+  width: min(90vw, 540px);
+  background: linear-gradient(180deg, rgba(11, 29, 62, 0.95), rgba(5, 11, 27, 0.98));
+  border: 6px solid #070e1f;
+  border-radius: 18px 18px 40px 40px;
+  padding: 28px 32px 40px;
+  box-shadow:
+    0 30px 60px var(--shadow-deep),
+    inset 0 0 0 4px rgba(79, 187, 239, 0.18),
+    inset 0 0 60px rgba(36, 255, 114, 0.12);
+  position: relative;
+  overflow: visible;
+}
+
+.back-button {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, rgba(31, 169, 255, 0.9), rgba(74, 47, 191, 0.9));
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  border-radius: 999px;
+  box-shadow:
+    0 6px 16px rgba(31, 169, 255, 0.35),
+    inset 0 0 8px rgba(255, 255, 255, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.back-button:hover,
+.back-button:focus {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 20px rgba(31, 169, 255, 0.45),
+    inset 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+.back-button:active {
+  transform: translateY(1px);
+}
+
+.arcade-cabinet::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.marquee {
+  position: relative;
+  margin-bottom: 26px;
+  padding: 18px 0;
+  background: linear-gradient(180deg, rgba(74, 47, 191, 0.9), rgba(31, 169, 255, 0.6));
+  border-radius: 14px 14px 24px 24px;
+  box-shadow:
+    0 12px 30px rgba(31, 169, 255, 0.35),
+    inset 0 0 40px rgba(255, 211, 38, 0.32),
+    inset 0 0 0 3px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 10px 10px 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+}
+
+.marquee-glow {
+  position: absolute;
+  inset: -18px -24px 100%;
+  background: radial-gradient(circle, rgba(255, 208, 0, 0.35), transparent 60%);
+  filter: blur(18px);
+  z-index: 0;
+}
+
+.marquee-title {
+  position: relative;
+  margin: 0;
+  font-size: clamp(1.2rem, 1.6vw + 1rem, 1.8rem);
+  text-shadow:
+    0 0 12px rgba(255, 208, 0, 0.8),
+    0 0 20px rgba(255, 59, 59, 0.65),
+    0 0 30px rgba(255, 208, 0, 0.6);
+  letter-spacing: 0.18em;
+}
+
+.screen-frame {
+  position: relative;
+  padding: 22px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(9, 21, 46, 0.95), rgba(7, 14, 32, 0.9));
+  box-shadow:
+    inset 0 6px 18px rgba(0, 0, 0, 0.6),
+    0 18px 35px rgba(0, 0, 0, 0.35);
+}
+
+.screen-inner {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 4px solid var(--screen-border);
+  background: #050606;
+  box-shadow:
+    inset 0 0 40px rgba(36, 255, 114, 0.08),
+    0 0 0 3px rgba(18, 65, 130, 0.45);
+}
+
+.screen-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 2px,
+    rgba(255, 255, 255, 0.04) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  opacity: 0.22;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.screen-glow {
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(circle, rgba(31, 169, 255, 0.2), transparent 55%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.game-screen {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: radial-gradient(circle at 50% 20%, rgba(31, 169, 255, 0.32), #020204 65%);
+  overflow: hidden;
+}
+
+.game-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 29, 62, 0.8), transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.game-stars {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(36, 255, 114, 0.5) 0.8px, transparent 1px),
+    radial-gradient(rgba(31, 169, 255, 0.6) 0.8px, transparent 1px);
+  background-size: 32px 32px, 46px 46px;
+  animation: starTwinkle 6s linear infinite;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.bird {
+  position: absolute;
+  top: 0;
+  left: 26%;
+  width: clamp(28px, 6vw, 36px);
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--cabinet-yellow, #ffd000), var(--cabinet-orange));
+  box-shadow:
+    0 0 0 4px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(255, 208, 0, 0.4);
+  transform: translateY(0);
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.bird::before,
+.bird::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+}
+
+.bird::before {
+  width: 30%;
+  height: 30%;
+  background: #000;
+  top: 20%;
+  right: 20%;
+}
+
+.bird::after {
+  width: 40%;
+  height: 40%;
+  background: linear-gradient(135deg, #ff3b3b, #ff8c2d);
+  bottom: 10%;
+  right: -20%;
+  border-radius: 0 40% 40% 0;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+.bird.is-flapping {
+  box-shadow:
+    0 0 0 4px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(255, 208, 0, 0.65);
+}
+
+.control-panel {
+  margin-top: 32px;
+  padding: 26px 28px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: linear-gradient(180deg, rgba(5, 11, 27, 0.85), rgba(11, 29, 62, 0.98));
+  border-radius: 28px 28px 34px 34px;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.5),
+    0 -12px 30px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.joystick {
+  position: relative;
+  width: clamp(80px, 16vw, 90px);
+  height: clamp(80px, 16vw, 95px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.joystick-base {
+  position: absolute;
+  bottom: 8px;
+  width: 76%;
+  height: 20px;
+  background: linear-gradient(180deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.7));
+  border-radius: 50%;
+  box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.12), 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.joystick-stick {
+  position: absolute;
+  bottom: 28px;
+  width: 16px;
+  height: 58%;
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.95), rgba(9, 9, 9, 0.85));
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.08);
+}
+
+.joystick::after {
+  content: "";
+  position: absolute;
+  bottom: clamp(46px, 12vw, 54px);
+  width: clamp(38px, 9vw, 46px);
+  height: clamp(38px, 9vw, 46px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(11, 29, 62, 0.2), rgba(31, 169, 255, 0.75));
+  box-shadow:
+    inset 0 0 15px rgba(31, 169, 255, 0.45),
+    0 0 25px rgba(31, 169, 255, 0.35);
+}
+
+.button-cluster {
+  display: flex;
+  gap: clamp(14px, 3vw, 18px);
+  padding: 0 clamp(4px, 1vw, 10px);
+}
+
+.control-button {
+  width: clamp(44px, 8vw, 52px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(210deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.6));
+  position: relative;
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 12px 18px rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.control-button::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.35);
+  background: currentColor;
+}
+
+.control-button--red {
+  color: var(--button-red);
+  box-shadow:
+    inset 0 0 16px rgba(255, 255, 255, 0.35),
+    0 16px 28px rgba(255, 59, 59, 0.45);
+}
+
+.control-button--yellow {
+  color: var(--button-yellow);
+  box-shadow:
+    inset 0 0 16px rgba(255, 255, 255, 0.35),
+    0 16px 28px rgba(255, 208, 0, 0.45);
+}
+
+.control-button--blue {
+  color: var(--button-blue);
+  box-shadow:
+    inset 0 0 16px rgba(255, 255, 255, 0.35),
+    0 16px 28px rgba(41, 121, 255, 0.45);
+}
+
+.control-button.is-pressed {
+  transform: translateY(6px);
+  box-shadow:
+    inset 0 0 16px rgba(255, 255, 255, 0.45),
+    0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes starTwinkle {
+  0% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(16px);
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 24px 12px;
+  }
+
+  .arcade-cabinet {
+    padding: 24px 20px 34px;
+  }
+
+  .marquee {
+    padding: 14px 0;
+  }
+
+  .control-panel {
+    padding: 22px 16px 18px;
+  }
+}

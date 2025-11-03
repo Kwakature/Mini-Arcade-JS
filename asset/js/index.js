@@ -31,11 +31,11 @@ function initGameCarousel() {
     {
       name: "Flappy Bird",
       image: "asset/img/flapy.png",
-      link: null,
+      link: "Flappy-Bird.html",
     },
     {
-      name: "Fusion Clicker",
-      image: "/asset/img/Pong.png",
+      name: "pong",
+      image: "/asset/img/flapy.png",
       link: "fusionclicker.html",
     },
 
