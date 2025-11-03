@@ -53,7 +53,7 @@ body::before {
   background: linear-gradient(180deg, rgba(11, 29, 62, 0.95), rgba(5, 11, 27, 0.98));
   border: 6px solid #070e1f;
   border-radius: 18px 18px 40px 40px;
-  padding: 28px 32px 40px;
+  padding: 64px 32px 40px;
   box-shadow:
     0 30px 60px var(--shadow-deep),
     inset 0 0 0 4px rgba(79, 187, 239, 0.18),
@@ -62,33 +62,16 @@ body::before {
   overflow: visible;
 }
 
-.back-button {
+.back-link {
   position: absolute;
   top: 18px;
-  left: 22px;
-  padding: 8px 12px;
-  background: linear-gradient(135deg, rgba(31, 169, 255, 0.9), rgba(74, 47, 191, 0.9));
-  color: #fff;
+  right: 22px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: #d0e8ff;
+  text-transform: uppercase;
   text-decoration: none;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  border-radius: 999px;
-  box-shadow:
-    0 6px 16px rgba(31, 169, 255, 0.35),
-    inset 0 0 8px rgba(255, 255, 255, 0.2);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.back-button:hover,
-.back-button:focus {
-  transform: translateY(-2px);
-  box-shadow:
-    0 10px 20px rgba(31, 169, 255, 0.45),
-    inset 0 0 12px rgba(255, 255, 255, 0.25);
-}
-
-.back-button:active {
-  transform: translateY(1px);
+  text-shadow: 0 0 8px rgba(31, 169, 255, 0.5);
 }
 
 .arcade-cabinet::before {
