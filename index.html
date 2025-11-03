@@ -9,29 +9,27 @@
   </head>
   <body>
     <div id="header-placeholder"></div>
-<body>
   <main class="container">
-    <h1 class="title neon">GAME<br/>FUSION</h1>
 
-    <h2 class="subtitle neon">SELECT<br/>GAME</h2>
+    <h2 class="subtitle-neon">SELECT<br/>GAME</h2>
 
     <section class="selector">
       <button id="prev" class="arrow" aria-label="Précédent" title="Jeu précédent">≪</button>
 
       <figure class="selector-photo" aria-label="Présentation du jeu">
         <img
-          src="asset/img/logo.png"
-          alt="Illustration du jeu sélectionné"
+          src="asset/img/flapy.png"
+          alt="Illustration du jeu Flappy Bird"
           class="selector-photo-image"
         />
       </figure>
 
       <button id="next" class="arrow" aria-label="Suivant" title="Jeu suivant">≫</button>
     </section>
-
+<br>
     <!-- Nom du jeu sélectionné -->
-    <p id="gameName" class="game-name neon-text">Flappy Bird</p>
-
+    <p id="gameName" class="game-name neon-text" aria-live="polite">Flappy Bird</p>
+<br><br>
     <!-- Bouton PLAY -->
     <div class="cta-wrap">
       <button id="playBtn" class="play-btn" aria-label="Lancer le jeu">PLAY</button>
