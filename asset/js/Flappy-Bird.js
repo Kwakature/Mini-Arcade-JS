@@ -27,6 +27,8 @@ let gameOver = false; // si le joueur a perdu
 let score = 0; // score actuel
 let lastFrame = 0; // temps du dernier rafraîchissement
 let idleWave = 0; // mouvement du bird quand il ne joue pas
+let godMode = false; // mode invincible pour éviter toute collision
+let funSpeedMode = false; // mode vitesse boostée juste pour le fun
 
 
 let bounds = { min: 0, max: 0 }; // limites de hauteur
@@ -195,9 +197,10 @@ const pipes = []; // tableau contenant tous les tuyaux
   const advancePipes = (delta) => {
     const birdRect = bird.getBoundingClientRect();
     let collision = false;
+    const speedFactor = funSpeedMode ? 2 : 1;
 
     for (const pipe of pipes) {
-      pipe.x -= pipeSpeed * delta;
+      pipe.x -= pipeSpeed * delta * speedFactor;
 
       if (pipe.x + pipe.top.offsetWidth < -60) {
         randomizePipe(pipe, nextPipeX);
@@ -218,7 +221,7 @@ const pipes = []; // tableau contenant tous les tuyaux
         birdRect.left < topRect.right &&
         (birdRect.top < topRect.bottom || birdRect.bottom > bottomRect.top);
 
-      if (overlaps) {
+      if (overlaps && !godMode) {
         collision = true;
       } else if (!pipe.scored && topRect.right < birdRect.left) {
         pipe.scored = true;
@@ -282,7 +285,7 @@ const pipes = []; // tableau contenant tous les tuyaux
       const hitBounds = applyPhysics(delta);
       const hitPipe = advancePipes(delta);
       renderBird();
-      if (hitBounds || hitPipe) {
+      if ((hitBounds || hitPipe) && !godMode) {
         endGame();
       }
     } else {
@@ -293,6 +296,9 @@ const pipes = []; // tableau contenant tous les tuyaux
 
   document.addEventListener("keydown", (event) => {
     if (event.code !== "Space" || event.repeat) {
+      return;
+    }
+    if (event.shiftKey && (event.metaKey || event.ctrlKey)) {
       return;
     }
     event.preventDefault();
@@ -334,4 +340,30 @@ const pipes = []; // tableau contenant tous les tuyaux
 
   resetGame();
   requestAnimationFrame(loop);
+
+  // Good mode (cheat en bas) : Cmd/Ctrl + Shift + Espace active/désactive l'invincibilité.
+  document.addEventListener("keydown", (event) => {
+    if (event.code !== "Space" || event.repeat) {
+      return;
+    }
+    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) {
+      return;
+    }
+    event.preventDefault();
+    godMode = !godMode;
+    showHint(godMode ? "Good mode activé — aucune collision" : "Good mode désactivé");
+  });
+
+  // Fun speed mode (pour le fun) : Cmd/Ctrl + Shift + V accélère le jeu.
+  document.addEventListener("keydown", (event) => {
+    if (event.code !== "KeyV" || event.repeat) {
+      return;
+    }
+    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) {
+      return;
+    }
+    event.preventDefault();
+    funSpeedMode = !funSpeedMode;
+    showHint(funSpeedMode ? "Fun speed activé — tout va plus vite !" : "Fun speed désactivé");
+  });
 });
