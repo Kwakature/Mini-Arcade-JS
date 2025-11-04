@@ -91,11 +91,18 @@ function initGameCarousel() {
       link: "/html/Flappy-Bird.html",
     },
     {
-      name: "Pong",
-      image: "asset/img/Pong.png",
-      imageDesktop: "asset/img/Pong.png",
-      imageMobile: "asset/img/Pong.png",
-      link: "fusionclicker.html",
+      name: "Tic Tac Toe",
+      image: "asset/img/tictactoe.png",
+      imageDesktop: "asset/img/tictactoe.png",
+      imageMobile: "asset/img/tictactoe.png",
+      link: "html/tictactoe.html",
+    },
+        {
+      name: "Fusionclicker",
+      image: "asset/img/Fusionclicker.png",
+      imageDesktop: "asset/img/Fusionclicker.png",
+      imageMobile: "asset/img/Fusionclicker.png",
+      link: "html/Fusionclicker.html",
     },
   ];
 
