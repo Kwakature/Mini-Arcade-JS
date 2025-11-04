@@ -1,15 +1,30 @@
 /* Import de la police Sixtyfour */
 @import url("https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: #0a0320;
+  font-family: "Sixtyfour", sans-serif;
+}
+
+/* Header avec bouton retour */
+.header {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* Bouton rétro doux */
-.return_button {
+.return_button,
+.button_reset {
   font-family: "Sixtyfour", sans-serif;
   font-size: 16px;
-  color: #a8e6cf; /* vert menthe pastel */
+  color: #a8e6cf;
   background-color: #1b1b1b;
   border: 3px solid #a8e6cf;
   padding: 18px 36px;
@@ -22,22 +37,64 @@ body {
   transition: all 0.25s ease;
 }
 
-/* Effet hover — couleur changeante pastel */
-.return_button:hover {
-  color: #fd0f0f; /* pêche pastel */
+/* Effet hover – couleur changeante pastel */
+.return_button:hover,
+.button_reset:hover {
+  color: #fd0f0f;
   border-color: #ff1e1e;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.8),
     inset 0 0 10px rgba(250, 20, 20, 0.4);
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.8);
 }
 
-/* Section du jeu */
+/* Container principal du jeu */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+  gap: 30px;
+}
+
+/* Titre du jeu */
+.game-title {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 48px;
+  color: #a8e6cf;
+  text-shadow: 0 0 20px rgba(168, 230, 207, 0.8),
+    0 0 40px rgba(168, 230, 207, 0.5);
+  letter-spacing: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(168, 230, 207, 0.8),
+      0 0 40px rgba(168, 230, 207, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(168, 230, 207, 1),
+      0 0 60px rgba(168, 230, 207, 0.7);
+  }
+}
+
+/* Section du jeu avec grille et joueurs */
+.game-section {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Section de la grille */
 .game {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 15px;
-  height: 100vh;
   background: radial-gradient(circle at center, #111 0%, #000 100%);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(168, 230, 207, 0.2);
 }
 
 /* Colonnes */
@@ -54,7 +111,7 @@ body {
   width: 120px;
   height: 120px;
   background-color: #1b1b1b;
-  border: 3px solid #a8e6cf; /* menthe pastel */
+  border: 3px solid #a8e6cf;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(168, 230, 207, 0.7),
     inset 0 0 10px rgba(168, 230, 207, 0.2);
@@ -63,11 +120,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 60px;
+  font-family: "Sixtyfour", sans-serif;
 }
 
 /* Effet hover sur une case */
 .game div[class^="case"]:hover {
-  border-color: #ffd3b6; /* pêche pastel */
+  border-color: #ffd3b6;
   box-shadow: 0 0 18px rgba(255, 211, 182, 0.8),
     inset 0 0 10px rgba(255, 211, 182, 0.3);
   transform: scale(1.05);
@@ -79,13 +138,6 @@ body {
   box-shadow: 0 0 10px rgba(255, 211, 182, 0.5) inset;
 }
 
-/* Optionnel : effet de grille lumineuse */
-.game {
-  box-shadow: 0 0 40px rgba(168, 230, 207, 0.2);
-  padding: 20px;
-  border-radius: 20px;
-}
-
 /* Images dans les cases */
 .game div[class^="case"] img {
   width: 160px;
@@ -93,4 +145,71 @@ body {
   object-fit: contain;
   pointer-events: none;
   user-select: none;
+}
+
+/* Styles des joueurs */
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.player {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 24px;
+  color: #a8e6cf;
+  text-shadow: 0 0 10px rgba(168, 230, 207, 0.6);
+  padding: 15px 25px;
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(168, 230, 207, 0.5),
+    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 200px;
+}
+
+.player.active {
+  color: #ffd3b6;
+  border-color: #ffd3b6;
+  box-shadow: 0 0 20px rgba(255, 211, 182, 0.8),
+    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  text-shadow: 0 0 10px rgba(255, 211, 182, 0.8);
+  transform: scale(1.1);
+}
+
+/* Section bouton reset */
+.button-section {
+  margin-top: 20px;
+}
+
+/* texte de score */
+.score_player1_text,
+.score_player2_text {
+  color: white;
+  margin: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .game-section {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .players {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .game-title {
+    font-size: 32px;
+  }
+
+  .game div[class^="case"] {
+    width: 90px;
+    height: 90px;
+    font-size: 45px;
+  }
 }
