@@ -1,85 +1,115 @@
+// Exécute le code quand le document est chargé
 document.addEventListener("DOMContentLoaded", () => {
-  const screen = document.querySelector("#gameScreen");
-  const bird = document.querySelector("#bird");
-  const jumpButton = document.querySelector("#jumpButton");
-  const pipeContainer = document.querySelector("#pipeContainer");
-  const scoreDisplay = document.querySelector("#scoreDisplay");
-  const hint = document.querySelector("#gameHint");
 
+  // Sélection des éléments HTML principaux du jeu
+  const screen = document.querySelector("#gameScreen"); // zone du jeu
+  const bird = document.querySelector("#bird"); // l’oiseau
+  const jumpButton = document.querySelector("#jumpButton"); // bouton pour sauter
+  const pipeContainer = document.querySelector("#pipeContainer"); // conteneur des tuyaux
+  const scoreDisplay = document.querySelector("#scoreDisplay"); // affichage du score
+  const hint = document.querySelector("#gameHint"); // texte d’aide (ex: “Appuie sur espace”)
+
+  // Vérifie que tous les éléments existent avant de lancer le jeu
   if (!screen || !bird || !jumpButton || !pipeContainer || !scoreDisplay || !hint) {
     return;
   }
 
-  const GRAVITY = 0.45; // la gravité qui attire le bird vers le bas
-  const JUMP_VELOCITY = -6.2; // vitesse de saut vers le haut
-  const MAX_FALL = 8; // vitesse maximale de chute
-  const PIPE_COUNT = 100; // nombre total de tuyaux générés
-  const PIPE_SPACING_MIN = 180; // distance minimale entre deux tuyaux
-  const GAP_MIN = 0.26; // ouverture minimale entre tuyaux (ratio)
-  const GAP_MAX = 0.32; // ouverture maximale
-  const GAP_MARGIN = 0.18; // marge pour éviter que les tuyaux soient trop collés en haut ou bas
+  // === CONSTANTES DU JEU ===
+  const GRAVITY = 0.45;         // force de gravité qui attire le bird vers le bas
+  const JUMP_VELOCITY = -6.2;   // force du saut
+  const MAX_FALL = 8;           // vitesse maximale de chute
+  const PIPE_COUNT = 100;       // nombre total de tuyaux générés à l’avance
+  const PIPE_SPACING_MIN = 180; // espace minimal entre deux tuyaux
+  const GAP_MIN = 0.26;         // ouverture minimale entre les tuyaux (en pourcentage de la hauteur)
+  const GAP_MAX = 0.32;         // ouverture maximale
+  const GAP_MARGIN = 0.18;      // marge pour éviter que le trou soit trop haut ou trop bas
 
+  // === VARIABLES DU JEU ===
+  let birdY = 0;         // position verticale du bird
+  let velocity = 0;       // vitesse actuelle du bird
+  let running = false;    // indique si la partie est en cours
+  let gameOver = false;   // indique si la partie est terminée
+  let score = 0;          // score actuel
+  let lastFrame = 0;      // temps de la dernière image
+  let idleWave = 0;       // animation du bird quand il ne joue pas
+  let godMode = false;    // mode invincible (aucune collision)
+  let funSpeedMode = false; // mode “vitesse boostée”
+  let hintTimerId = null;   // timer pour cacher automatiquement les messages
 
-let birdY = 0; // position verticale du bird
-let velocity = 0; // vitesse actuelle du bird
-let running = false; // si le jeu est en cours
-let gameOver = false; // si le joueur a perdu
-let score = 0; // score actuel
-let lastFrame = 0; // temps du dernier rafraîchissement
-let idleWave = 0; // mouvement du bird quand il ne joue pas
-let godMode = false; // mode invincible pour éviter toute collision
-let funSpeedMode = false; // mode vitesse boostée juste pour le fun
+  // Données liées à la scène
+  let bounds = { min: 0, max: 0 }; // limites haut/bas du bird
+  let pipeSpacing = 220;           // distance entre les tuyaux
+  let pipeSpeed = 2.2;             // vitesse de défilement des tuyaux
+  let nextPipeX = 0;               // position du prochain tuyau à générer
+  const pipes = [];                // tableau contenant les tuyaux
 
-
-let bounds = { min: 0, max: 0 }; // limites de hauteur
-let pipeSpacing = 220; // distance horizontale entre tuyaux
-let pipeSpeed = 2.2; // vitesse de défilement
-let nextPipeX = 0; // position du prochain tuyau
-const pipes = []; // tableau contenant tous les tuyaux
-
-
+  // === GESTION DU SON ===
   const audioState = {
     context: null,
     masterGain: null,
-  }; //fait un petit bip quand on saute
+  };
 
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max); //Empêche l'oiseau d’aller en dehors du jeux.
-  const randomBetween = (min, max) => min + Math.random() * (max - min); //Génère un nombre aléatoire entre min et max.
+  // Empêche le bird d’aller au-dessus ou en dessous de la zone de jeu
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
+  // Retourne un nombre aléatoire entre min et max
+  const randomBetween = (min, max) => min + Math.random() * (max - min);
+
+  // Met à jour le score à l’écran
   const setScore = (value) => {
     score = value;
     scoreDisplay.textContent = String(value);
-  }; //Met à jour la variable score et l’affiche sur l’écran.
+  };
 
+  // Affiche un message d’aide ou d’info
   const showHint = (message) => {
+    if (hintTimerId !== null) {
+      window.clearTimeout(hintTimerId);
+      hintTimerId = null;
+    }
     hint.textContent = message;
     hint.classList.remove("is-hidden");
-  }; // affiche un message d’aide.
+    hintTimerId = window.setTimeout(() => {
+      hideHint();
+      hintTimerId = null;
+    }, 3000);
+  };
 
-  const hideHint = () => hint.classList.add("is-hidden"); // masque le message d’aide.
+  // Cache le message d’aide
+  const hideHint = () => {
+    if (hintTimerId !== null) {
+      window.clearTimeout(hintTimerId);
+      hintTimerId = null;
+    }
+    hint.classList.add("is-hidden");
+  };
 
-  const releaseButton = () => jumpButton.classList.remove("is-pressed"); // enlève l’effet visuel du bouton.
+  // Enlève l’effet visuel du bouton de saut
+  const releaseButton = () => jumpButton.classList.remove("is-pressed");
 
+  // Prépare l’audio (si possible)
   const ensureAudio = () => { 
     if (audioState.context) {
       if (audioState.context.state === "suspended") {
         audioState.context.resume().catch(() => { });
       }
       return;
-    } // en gros si l'audio existe deja on l'active 
+    }
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     if (!AudioContextClass) {
       return;
     }
 
+    // Création du contexte audio
     const context = new AudioContextClass();
     const masterGain = context.createGain();
-    masterGain.gain.value = 0.10;
+    masterGain.gain.value = 0.10; // volume général
     masterGain.connect(context.destination);
     audioState.context = context;
     audioState.masterGain = masterGain;
   };
 
+  // Joue un petit bip quand on saute
   const playJumpBeep = () => {
     ensureAudio();
     if (!audioState.context || !audioState.masterGain) {
@@ -88,7 +118,8 @@ const pipes = []; // tableau contenant tous les tuyaux
     const now = audioState.context.currentTime;
     const osc = audioState.context.createOscillator();
     const gain = audioState.context.createGain();
-    osc.type = "square";
+
+    osc.type = "square"; // son carré
     osc.frequency.setValueAtTime(760, now);
     gain.gain.setValueAtTime(0, now);
     gain.gain.linearRampToValueAtTime(0.06, now + 0.02);
@@ -99,6 +130,7 @@ const pipes = []; // tableau contenant tous les tuyaux
     osc.stop(now + 0.3);
   };
 
+  // Calcule la taille de la zone et les vitesses selon la fenêtre
   const computeLayout = () => {
     const screenHeight = screen.clientHeight;
     const screenWidth = screen.clientWidth;
@@ -112,11 +144,13 @@ const pipes = []; // tableau contenant tous les tuyaux
     nextPipeX = screenWidth * 1.1;
   };
 
+  // Affiche le bird à la bonne position
   const renderBird = (offsetY = 0) => {
     const y = Math.round(birdY + offsetY);
     bird.style.transform = `translate3d(0, ${y}px, 0)`;
   };
 
+  // Effet visuel quand le bird saute
   const triggerJumpVisuals = () => {
     jumpButton.classList.add("is-pressed");
     bird.classList.add("is-flapping");
@@ -125,6 +159,7 @@ const pipes = []; // tableau contenant tous les tuyaux
     }, 140);
   };
 
+  // Crée un duo de tuyaux (haut + bas)
   const createPipePair = () => {
     const top = document.createElement("div");
     top.className = "pipe pipe--top";
@@ -134,11 +169,10 @@ const pipes = []; // tableau contenant tous les tuyaux
     return { top, bottom, x: 0, gapRatio: 0.3, centerRatio: 0.5, scored: false };
   };
 
+  // Définit la hauteur et position verticale des tuyaux
   const layoutPipe = (pipe) => {
     const height = screen.clientHeight;
-    if (!height) {
-      return;
-    }
+    if (!height) return;
     const gap = height * pipe.gapRatio;
     const center = height * pipe.centerRatio;
     const topHeight = clamp(center - gap / 2, 20, height - 40);
@@ -147,12 +181,14 @@ const pipes = []; // tableau contenant tous les tuyaux
     pipe.bottom.style.height = `${Math.round(bottomHeight)}px`;
   };
 
+  // Place les tuyaux horizontalement
   const positionPipe = (pipe) => {
     const x = Math.round(pipe.x);
     pipe.top.style.transform = `translate3d(${x}px, 0, 0)`;
     pipe.bottom.style.transform = `translate3d(${x}px, 0, 0)`;
   };
 
+  // Randomise la position et la taille d’un tuyau
   const randomizePipe = (pipe, x) => {
     const gap = randomBetween(GAP_MIN, GAP_MAX);
     const minCenter = GAP_MARGIN + gap / 2;
@@ -165,12 +201,12 @@ const pipes = []; // tableau contenant tous les tuyaux
     positionPipe(pipe);
   };
 
+  // Crée tous les tuyaux de départ
   const seedPipes = () => {
     pipeContainer.innerHTML = "";
     pipes.length = 0;
-
     let cursor = nextPipeX;
-    for (let index = 0; index < PIPE_COUNT; index += 1) {
+    for (let index = 0; index < PIPE_COUNT; index++) {
       const pipe = createPipePair();
       pipes.push(pipe);
       randomizePipe(pipe, cursor);
@@ -179,21 +215,18 @@ const pipes = []; // tableau contenant tous les tuyaux
     nextPipeX = cursor;
   };
 
+  // Applique la gravité et le mouvement du bird
   const applyPhysics = (delta) => {
     velocity = Math.min(velocity + GRAVITY * delta, MAX_FALL);
     birdY += velocity * delta;
 
-    if (birdY <= bounds.min) {
-      birdY = bounds.min;
-      return true;
-    }
-    if (birdY >= bounds.max) {
-      birdY = bounds.max;
-      return true;
-    }
+    // Si le bird touche le haut ou le bas
+    if (birdY <= bounds.min) { birdY = bounds.min; return true; }
+    if (birdY >= bounds.max) { birdY = bounds.max; return true; }
     return false;
   };
 
+  // Fait avancer les tuyaux et vérifie les collisions
   const advancePipes = (delta) => {
     const birdRect = bird.getBoundingClientRect();
     let collision = false;
@@ -202,6 +235,7 @@ const pipes = []; // tableau contenant tous les tuyaux
     for (const pipe of pipes) {
       pipe.x -= pipeSpeed * delta * speedFactor;
 
+      // Si un tuyau sort de l’écran, on le replace à droite
       if (pipe.x + pipe.top.offsetWidth < -60) {
         randomizePipe(pipe, nextPipeX);
         nextPipeX += pipeSpacing;
@@ -209,10 +243,9 @@ const pipes = []; // tableau contenant tous les tuyaux
         positionPipe(pipe);
       }
 
-      if (!running || collision) {
-        continue;
-      }
+      if (!running || collision) continue;
 
+      // Détection de collision
       const topRect = pipe.top.getBoundingClientRect();
       const bottomRect = pipe.bottom.getBoundingClientRect();
 
@@ -221,9 +254,12 @@ const pipes = []; // tableau contenant tous les tuyaux
         birdRect.left < topRect.right &&
         (birdRect.top < topRect.bottom || birdRect.bottom > bottomRect.top);
 
+      // Si on touche un tuyau et pas en god mode → perdu
       if (overlaps && !godMode) {
         collision = true;
-      } else if (!pipe.scored && topRect.right < birdRect.left) {
+      } 
+      // Si on passe un tuyau → +1 point
+      else if (!pipe.scored && topRect.right < birdRect.left) {
         pipe.scored = true;
         setScore(score + 1);
       }
@@ -232,6 +268,7 @@ const pipes = []; // tableau contenant tous les tuyaux
     return collision;
   };
 
+  // Réinitialise complètement le jeu
   const resetGame = () => {
     computeLayout();
     running = false;
@@ -248,6 +285,7 @@ const pipes = []; // tableau contenant tous les tuyaux
     bird.classList.remove("is-flapping");
   };
 
+  // Quand on perd
   const endGame = () => {
     running = false;
     gameOver = true;
@@ -256,11 +294,10 @@ const pipes = []; // tableau contenant tous les tuyaux
     bird.classList.remove("is-flapping");
   };
 
+  // Fait sauter le bird
   const jump = () => {
     ensureAudio();
-    if (gameOver) {
-      resetGame();
-    }
+    if (gameOver) resetGame();
     if (!running) {
       running = true;
       hideHint();
@@ -270,14 +307,10 @@ const pipes = []; // tableau contenant tous les tuyaux
     playJumpBeep();
   };
 
+  // Boucle principale du jeu (60 FPS)
   const loop = (time) => {
     requestAnimationFrame(loop);
-
-    if (!lastFrame) {
-      lastFrame = time;
-      return;
-    }
-
+    if (!lastFrame) { lastFrame = time; return; }
     const delta = Math.min((time - lastFrame) / (1000 / 60), 3);
     lastFrame = time;
 
@@ -285,47 +318,43 @@ const pipes = []; // tableau contenant tous les tuyaux
       const hitBounds = applyPhysics(delta);
       const hitPipe = advancePipes(delta);
       renderBird();
-      if ((hitBounds || hitPipe) && !godMode) {
-        endGame();
-      }
+      if ((hitBounds || hitPipe) && !godMode) endGame();
     } else {
+      // Animation idle (petit mouvement de haut en bas)
       idleWave += delta;
       renderBird(Math.sin(idleWave / 12) * 6);
     }
   };
 
+  // === GESTION DES TOUCHES ===
   document.addEventListener("keydown", (event) => {
-    if (event.code !== "Space" || event.repeat) {
-      return;
-    }
-    if (event.shiftKey && (event.metaKey || event.ctrlKey)) {
-      return;
-    }
+    if (event.code !== "Space" || event.repeat) return;
+    if (event.shiftKey && (event.metaKey || event.ctrlKey)) return;
     event.preventDefault();
     jump();
   });
 
   document.addEventListener("keyup", (event) => {
-    if (event.code === "Space") {
-      releaseButton();
-    }
+    if (event.code === "Space") releaseButton();
   });
 
+  // Gestion du clic ou appui tactile
   screen.addEventListener("pointerdown", (event) => {
     event.preventDefault();
     jump();
   });
-
   jumpButton.addEventListener("pointerdown", (event) => {
     event.preventDefault();
     jump();
   });
 
+  // Quand on relâche le clic/touch
   const handlePointerUp = () => releaseButton();
   window.addEventListener("pointerup", handlePointerUp);
   window.addEventListener("pointercancel", handlePointerUp);
   window.addEventListener("blur", handlePointerUp);
 
+  // Recalcule la taille si on redimensionne la fenêtre
   window.addEventListener("resize", () => {
     const wasRunning = running;
     computeLayout();
@@ -333,35 +362,27 @@ const pipes = []; // tableau contenant tous les tuyaux
       layoutPipe(pipe);
       positionPipe(pipe);
     }
-    if (!wasRunning) {
-      renderBird();
-    }
+    if (!wasRunning) renderBird();
   });
 
+  // Démarre le jeu
   resetGame();
   requestAnimationFrame(loop);
 
-  // Good mode (cheat en bas) : Cmd/Ctrl + Shift + Espace active/désactive l'invincibilité.
+  // === MODES SECRETS ===
+  // God mode : Ctrl/Cmd + Shift + Espace
   document.addEventListener("keydown", (event) => {
-    if (event.code !== "Space" || event.repeat) {
-      return;
-    }
-    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) {
-      return;
-    }
+    if (event.code !== "KeyG" || event.repeat) return;
+    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) return;
     event.preventDefault();
     godMode = !godMode;
     showHint(godMode ? "Good mode activé — aucune collision" : "Good mode désactivé");
   });
 
-  // Fun speed mode (pour le fun) : Cmd/Ctrl + Shift + V accélère le jeu.
+  // Fun speed mode : Ctrl/Cmd + Shift + V
   document.addEventListener("keydown", (event) => {
-    if (event.code !== "KeyV" || event.repeat) {
-      return;
-    }
-    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) {
-      return;
-    }
+    if (event.code !== "KeyV" || event.repeat) return;
+    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) return;
     event.preventDefault();
     funSpeedMode = !funSpeedMode;
     showHint(funSpeedMode ? "Fun speed activé — tout va plus vite !" : "Fun speed désactivé");
