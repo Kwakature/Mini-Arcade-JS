@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flappy Arcade</title>
+    <link rel="stylesheet" href="asset/css/Flappy-Bird.css" />
+  </head>
+  <body>
+    <main class="arcade-cabinet">
+      <a class="back-link" href="index.html" aria-label="Retour vers l'accueil"> <br>Retour</a>
+      <section class="marquee">
+        <div class="marquee-glow"></div>
+        <h1 class="marquee-title">FLAPPY ARCADE</h1>
+      </section>
+
+      <section class="screen-frame">
+        <div class="screen-inner">
+          <div class="screen-scanlines"></div>
+          <div class="screen-glow"></div>
+          <div class="game-screen" id="gameScreen" role="application" aria-label="Flappy Bird simplifié">
+            <div class="game-stars"></div>
+            <div class="pipe-container" id="pipeContainer" aria-hidden="true"></div>
+            <div class="game-hud" aria-live="polite">
+              <p class="score-display" id="scoreDisplay">0</p>
+              <p class="game-hint" id="gameHint">Appuie sur ESPACE pour jouer</p>
+            </div>
+            <div class="bird" id="bird" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="control-panel">
+        <div class="joystick">
+          <span class="joystick-stick"></span>
+          <span class="joystick-base"></span>
+        </div>
+        <div class="button-cluster" aria-hidden="true">
+          <span class="control-button control-button--red"></span>
+          <span
+            class="control-button control-button--yellow"
+            id="jumpButton"
+          ></span>
+          <span class="control-button control-button--blue"></span>
+        </div>
+      </section>
+    </main>
+
+    <script src="asset/js/Flappy-Bird.js"></script>
+  </body>
+</html>
