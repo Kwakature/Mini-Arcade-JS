@@ -15,6 +15,11 @@ function injectHeader() {
       const placeholder = document.querySelector("#header-placeholder");
       if (placeholder) {
         placeholder.innerHTML = data;
+
+        // C'EST LA CORRECTION PRINCIPALE :
+        // On appelle la fonction de musique ICI,
+        // maintenant que le header est dans la page.
+        initMusicControls();
       }
     })
     .catch((error) => {
@@ -24,6 +29,56 @@ function injectHeader() {
         placeholder.innerHTML = "<p>Impossible de charger l'en-tête.</p>";
       }
     });
+}
+
+/**
+ * Initialise les contrôles de la musique de fond.
+ * Cette fonction est appelée APRES l'injection du header.
+ */
+function initMusicControls() {
+  // 1. Sélectionne le bouton et l'audio par leur ID
+  const boutonLogo = document.querySelector(".bouton_logo");
+  const backgroundMusic = document.getElementById("backgroundMusic");
+
+  // Sécurité : Vérifie si les éléments existent avant de continuer
+  if (!boutonLogo || !backgroundMusic) {
+    console.error("Impossible de trouver le bouton mute ou l'audio.");
+    return;
+  }
+
+  // 2. Ajoute un "écouteur d'événement" sur le bouton
+  boutonLogo.addEventListener("click", () => {
+    // 3. Logique pour couper/remettre le son
+
+    // Si la musique est actuellement en pause (parce que l'autoplay a été bloqué)
+    // On la lance au premier clic.
+    if (backgroundMusic.paused) {
+      backgroundMusic.play();
+    }
+
+    // Inverse l'état "muet" de la musique
+    backgroundMusic.muted = !backgroundMusic.muted;
+
+    // 4. Met à jour le texte du bouton pour refléter le nouvel état
+    if (backgroundMusic.muted) {
+      boutonLogo.innerHTML = `<img src="asset/img/mute.png" alt="logo son coupé" class="logomute">`;
+    } else {
+      boutonLogo.innerHTML = `<img src="asset/img/unmute.png" alt="logo son coupé" class="logomute">`;
+    }
+  });
+
+  // --- Note sur l'autoplay ---
+  // Tente de lancer la musique, mais gère l'erreur si le navigateur bloque
+  let playPromise = backgroundMusic.play();
+  if (playPromise !== undefined) {
+    playPromise.catch((error) => {
+      // L'autoplay a été bloqué.
+      // La musique ne démarrera pas avant le premier clic sur le bouton.
+      console.log("L'autoplay a été bloqué par le navigateur.");
+      // On peut mettre à jour le bouton pour refléter cet état initial
+      muteButton.textContent = "🔇 Son coupé";
+    });
+  }
 }
 
 function initGameCarousel() {
@@ -42,7 +97,6 @@ function initGameCarousel() {
       imageMobile: "asset/img/Pong.png",
       link: "fusionclicker.html",
     },
-
   ];
 
   const prevButton = document.querySelector("#prev");
@@ -97,8 +151,7 @@ function initGameCarousel() {
     if (state.animating) {
       return;
     }
-    const nextIndex =
-      (state.index + step + games.length) % games.length;
+    const nextIndex = (state.index + step + games.length) % games.length;
     animateTo(nextIndex, step > 0 ? 1 : -1);
   }
 
