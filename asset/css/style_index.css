@@ -114,7 +114,7 @@ body {
   will-change: transform, opacity;
 }
 .selector-photo-image[data-variant="mobile"]{
-  box-shadow:
+  box-shadow: none; 
 }
 .selector-photo-image.is-animating{
   pointer-events: none;
