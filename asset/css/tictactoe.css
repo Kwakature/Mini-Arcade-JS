@@ -184,6 +184,13 @@ body {
   margin-top: 20px;
 }
 
+/* texte de score */
+.score_player1_text,
+.score_player2_text {
+  color: white;
+  margin: 20px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .game-section {
