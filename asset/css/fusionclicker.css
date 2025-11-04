@@ -1,0 +1,218 @@
+/* === THÈME GLOBAL & VARIABLES === */
+/* (Ceci est repris de ta base) */
+
+* { 
+    box-sizing: border-box; 
+}
+
+html, body { 
+    height: 100%; 
+}
+
+:root {
+    --bg: #0A0320;
+    --neon1: #FFA726;
+    --neon2: #FFD54F;
+    --glow-red: #ff2d2d;
+    --btn: #A02A6C; /* Rose pour les boutons */
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    font-family: "Sixtyfour", system-ui, sans-serif;
+    color: var(--neon2); /* Couleur de texte par défaut */
+    letter-spacing: 0.08em;
+    
+    /* Ajout pour centrer le jeu à l'écran */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* === STRUCTURE DU JEU === */
+
+.game-container {
+    max-width: 450px; /* Largeur type mobile */
+    width: 95%;
+    height: 90vh; /* Hauteur type mobile */
+    max-height: 800px;
+    margin: 0 auto;
+    padding: 24px 20px 32px;
+    text-align: center;
+    
+    /* Structure flex pour pousser le footer en bas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    /* Look de la "borne d'arcade" */
+    background: #0d0529;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.25), 
+                inset 0 0 15px rgba(0,0,0,0.5);
+}
+
+.game-content {
+    /* Ce conteneur va centrer le titre, le score, etc. */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-footer {
+    width: 100%;
+    margin-top: 20px; /* Espace au-dessus du bouton PLAY */
+}
+
+
+/* === ÉLÉMENTS DU JEU === */
+
+/* On reprend le style .title de ta base et on l'applique à .game-title */
+.game-title {
+    font-family: 'Sixtyfour', monospace;
+    font-size: 48px; /* Un peu plus petit pour mobile */
+    font-weight: 400;
+    margin: 0 0 24px 0;
+    background: linear-gradient(180deg,
+        #ffd700 0%,
+        #ffed4e 15%,
+        #ff8c00 35%,
+        #ff6b35 50%,
+        #ff4500 65%,
+        #cc0000 85%,
+        #8b0000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 25px rgba(255, 140, 0, 0.4);
+    letter-spacing: 6px;
+    text-align: center;
+    line-height: 1.1; /* Évite les coupures bizarres */
+}
+
+/* Style pour l'affichage du score */
+.score-display {
+    font-size: 26px;
+    margin-bottom: 20px;
+    /* On utilise l'effet .neon-text de ta base */
+    text-shadow:
+        0 1px 0 rgba(255,162,0,0.35),
+        0 0 12px rgba(255,135,0,0.25),
+        0 0 22px rgba(255,145,0,0.2),
+        0 0 30px var(--glow-red);
+}
+
+#score-value {
+    color: #ffffff; /* Le score lui-même en blanc pour ressortir */
+    font-size: 1.2em;
+}
+
+/* Zone de clic (flèches + bouton) */
+/* On reprend le style .selector de ta base */
+.clicker-area {
+    display: grid;
+    grid-template-columns: 1fr minmax(160px, 200px) 1fr;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* Bouton de clic principal (le gros rose) */
+.main-clicker {
+    background-color: var(--btn); /* Couleur rose de ta variable */
+    border: 2px solid #ff79c6; /* Bordure rose fluo */
+    border-radius: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all .1s ease;
+    
+    /* Effet 3D "enfoncé" */
+    box-shadow: 0 8px 0 #6d1b4a, 0 12px 20px rgba(0,0,0,0.4);
+}
+
+.main-clicker img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Garde l'aspect pixelisé de l'icône */
+    image-rendering: pixelated; 
+}
+
+/* Quand on clique, on "enfonce" le bouton */
+.main-clicker:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 #6d1b4a, 0 8px 10px rgba(0,0,0,0.4);
+}
+
+
+/* Flèches (repris de ta base) */
+.arrow {
+    background: none;
+    border: none;
+    font: inherit;
+    color: var(--neon2);
+    text-shadow:
+        0 0 10px rgba(255,180,0,0.35),
+        0 0 22px var(--glow-red);
+    font-size: 42px; /* Taille ajustée */
+    cursor: pointer;
+    transition: transform .12s ease, filter .12s ease;
+    user-select: none;
+}
+.arrow:hover { 
+    transform: translateY(-2px) scale(1.06); 
+    filter: brightness(1.25); 
+}
+.arrow:active { 
+    transform: translateY(0) scale(0.98); 
+}
+
+/* Nom du mode de jeu */
+/* On reprend le style .game-name de ta base */
+.game-mode {
+    margin: 24px auto 22px;
+    font-size: 22px;
+    letter-spacing: .18em;
+    color: #FFC94A;
+    /* On utilise l'effet .neon-text */
+    text-shadow:
+        0 1px 0 rgba(255,162,0,0.35),
+        0 0 12px rgba(255,135,0,0.25),
+        0 0 22px rgba(255,145,0,0.2),
+        0 0 30px var(--glow-red);
+}
+
+
+/* Bouton PLAY (repris de ta base) */
+.play-btn {
+    font: inherit;
+    color: #ffd89f;
+    background: var(--btn);
+    border: none;
+    border-radius: 25px;
+    padding: 18px 48px; /* Taille ajustée */
+    width: 100%;
+    max-width: 350px;
+    letter-spacing: .18em;
+    font-size: 28px; /* Taille ajustée */
+    cursor: pointer;
+    box-shadow:
+        0 14px 38px rgba(0,0,0,.55),
+        0 0 16px rgba(255,0,0,.28),
+        0 0 36px rgba(255,0,0,.18);
+    transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
+}
+.play-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow:
+        0 18px 44px rgba(0,0,0,.65),
+        0 0 22px rgba(255,0,0,.34),
+        0 0 44px rgba(255,0,0,.22);
+}
+.play-btn:active { 
+    transform: translateY(0); 
+}
