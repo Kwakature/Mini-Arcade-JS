@@ -174,9 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
     nextPipeX = cursor;
   };
 
-  const applyPhysics = () => {
-    velocity = Math.min(velocity + GRAVITY, MAX_FALL);
-    birdY += velocity;
+  const applyPhysics = (delta) => {
+    velocity = Math.min(velocity + GRAVITY * delta, MAX_FALL);
+    birdY += velocity * delta;
 
     if (birdY <= bounds.min) {
       birdY = bounds.min;
@@ -189,12 +189,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return false;
   };
 
-  const advancePipes = () => {
+  const advancePipes = (delta) => {
     const birdRect = bird.getBoundingClientRect();
     let collision = false;
 
     for (const pipe of pipes) {
-      pipe.x -= pipeSpeed;
+      pipe.x -= pipeSpeed * delta;
 
       if (pipe.x + pipe.top.offsetWidth < -60) {
         randomizePipe(pipe, nextPipeX);
@@ -276,15 +276,11 @@ document.addEventListener("DOMContentLoaded", () => {
     lastFrame = time;
 
     if (running) {
-      const steps = Math.max(1, Math.round(delta));
-      for (let step = 0; step < steps; step += 1) {
-        const hitBounds = applyPhysics();
-        const hitPipe = advancePipes();
-        renderBird();
-        if (hitBounds || hitPipe) {
-          endGame();
-          break;
-        }
+      const hitBounds = applyPhysics(delta);
+      const hitPipe = advancePipes(delta);
+      renderBird();
+      if (hitBounds || hitPipe) {
+        endGame();
       }
     } else {
       idleWave += delta;
