@@ -10,63 +10,66 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const GRAVITY = 0.45;
-  const JUMP_VELOCITY = -6.2;
-  const MAX_FALL = 8;
-  const PIPE_COUNT = 100;
-  const PIPE_SPACING_MIN = 180;
-  const GAP_MIN = 0.26;
-  const GAP_MAX = 0.32;
-  const GAP_MARGIN = 0.18;
+  const GRAVITY = 0.45; // la gravité qui attire le bird vers le bas
+  const JUMP_VELOCITY = -6.2; // vitesse de saut vers le haut
+  const MAX_FALL = 8; // vitesse maximale de chute
+  const PIPE_COUNT = 100; // nombre total de tuyaux générés
+  const PIPE_SPACING_MIN = 180; // distance minimale entre deux tuyaux
+  const GAP_MIN = 0.26; // ouverture minimale entre tuyaux (ratio)
+  const GAP_MAX = 0.32; // ouverture maximale
+  const GAP_MARGIN = 0.18; // marge pour éviter que les tuyaux soient trop collés en haut ou bas
 
-  let birdY = 0;
-  let velocity = 0;
-  let running = false;
-  let gameOver = false;
-  let score = 0;
-  let lastFrame = 0;
-  let idleWave = 0;
 
-  let bounds = { min: 0, max: 0 };
-  let pipeSpacing = 220;
-  let pipeSpeed = 2.2;
-  let nextPipeX = 0;
-  const pipes = [];
+let birdY = 0; // position verticale du bird
+let velocity = 0; // vitesse actuelle du bird
+let running = false; // si le jeu est en cours
+let gameOver = false; // si le joueur a perdu
+let score = 0; // score actuel
+let lastFrame = 0; // temps du dernier rafraîchissement
+let idleWave = 0; // mouvement du bird quand il ne joue pas
+
+
+let bounds = { min: 0, max: 0 }; // limites de hauteur
+let pipeSpacing = 220; // distance horizontale entre tuyaux
+let pipeSpeed = 2.2; // vitesse de défilement
+let nextPipeX = 0; // position du prochain tuyau
+const pipes = []; // tableau contenant tous les tuyaux
+
 
   const audioState = {
     context: null,
     masterGain: null,
-  };
+  }; //fait un petit bip quand on saute
 
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-  const randomBetween = (min, max) => min + Math.random() * (max - min);
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max); //Empêche l'oiseau d’aller en dehors du jeux.
+  const randomBetween = (min, max) => min + Math.random() * (max - min); //Génère un nombre aléatoire entre min et max.
 
   const setScore = (value) => {
     score = value;
     scoreDisplay.textContent = String(value);
-  };
+  }; //Met à jour la variable score et l’affiche sur l’écran.
 
   const showHint = (message) => {
     hint.textContent = message;
     hint.classList.remove("is-hidden");
-  };
+  }; // affiche un message d’aide.
 
-  const hideHint = () => hint.classList.add("is-hidden");
+  const hideHint = () => hint.classList.add("is-hidden"); // masque le message d’aide.
 
-  const releaseButton = () => jumpButton.classList.remove("is-pressed");
+  const releaseButton = () => jumpButton.classList.remove("is-pressed"); // enlève l’effet visuel du bouton.
 
-  const ensureAudio = () => {
+  const ensureAudio = () => { 
     if (audioState.context) {
       if (audioState.context.state === "suspended") {
-        audioState.context.resume().catch(() => {});
+        audioState.context.resume().catch(() => { });
       }
       return;
-    }
+    } // en gros si l'audio existe deja on l'active 
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     if (!AudioContextClass) {
       return;
     }
-    
+
     const context = new AudioContextClass();
     const masterGain = context.createGain();
     masterGain.gain.value = 0.10;
