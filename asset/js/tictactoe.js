@@ -8,6 +8,9 @@ const case7 = document.querySelector(".case7");
 const case8 = document.querySelector(".case8");
 const case9 = document.querySelector(".case9");
 const returnButton = document.querySelector(".return_button");
+const buttonReset = document.querySelector(".button_reset");
+const affplayer1 = document.querySelector(".player1");
+const affplayer2 = document.querySelector(".player2");
 
 let player1 = true;
 let player2 = false;
@@ -86,9 +89,13 @@ function selectImgInvers() {
   if (player1 == true) {
     player1 = false;
     player2 = true;
+    affplayer2.classList.add("active");
+    affplayer1.classList.remove("active");
   } else {
     player1 = true;
     player2 = false;
+    affplayer2.classList.remove("active");
+    affplayer1.classList.add("active");
   }
 }
 
@@ -129,10 +136,16 @@ function checkWinner() {
 }
 
 function resetGame() {
-  player1 = true;
-  player2 = false;
+  if (Math.random() < 0.5) {
+    player1 = true;
+    player2 = false;
+  } else {
+    player1 = false;
+    player2 = true;
+  }
   gameBoard = ["", "", "", "", "", "", "", "", ""];
   gameActive = true;
+  selectImgInvers();
 
   // Nettoyer toutes les cases
   case1.innerHTML = "";
@@ -194,7 +207,11 @@ case9.addEventListener("click", () => {
 
 // Bouton retour pour réinitialiser
 returnButton.addEventListener("click", () => {
-  resetGame();
+  window.location.href = "./../../index.html";
+});
+
+buttonReset.addEventListener("click", () => {
+  init();
 });
 
 function init() {
