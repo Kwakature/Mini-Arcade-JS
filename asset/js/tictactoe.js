@@ -40,30 +40,39 @@ function addImg(caseSelect, img) {
   switch (caseNumber) {
     case 0:
       case1.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 1:
       case2.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 2:
       case3.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 3:
       case4.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 4:
       case5.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 5:
       case6.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 6:
       case7.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 7:
       case8.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     case 8:
       case9.innerHTML = `<img class="imgCase" src="/asset/img/${img}" alt="image cercle ou croix" />`;
+      selectImgInvers();
       break;
     default:
       console.log("erreur");
@@ -99,7 +108,7 @@ function checkWinner() {
   }
 
   if (roundWon) {
-    const winner = player1 ? "Joueur 1 (X)" : "Joueur 2 (0)";
+    const winner = player1 ? "Joueur 1 (O)" : "Joueur 2 (X)";
     setTimeout(() => {
       alert(`${winner} a gagné ! 🎉`);
       resetGame();
@@ -141,55 +150,46 @@ function resetGame() {
 case1.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case1.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case2.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case2.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case3.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case3.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case4.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case4.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case5.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case5.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case6.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case6.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case7.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case7.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case8.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case8.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 case9.addEventListener("click", () => {
   const img = player1 ? "crois.png" : "rond.png";
   addImg(case9.dataset.case, img);
-  if (gameActive) selectImgInvers();
 });
 
 // Bouton retour pour réinitialiser
