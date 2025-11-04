@@ -85,9 +85,9 @@ function initGameCarousel() {
   const games = [
     {
       name: "Flappy Bird",
-      image: "asset/img/flapy.png",
-      imageDesktop: "asset/img/flapy.png",
-      imageMobile: "asset/img/flapy-mobile.png",
+      image: "asset/img/flappy.png",
+      imageDesktop: "asset/img/flappy.png",
+      imageMobile: "asset/img/flappy-mobile.png",
       link: "/html/Flappy-Bird.html",
     },
     {
