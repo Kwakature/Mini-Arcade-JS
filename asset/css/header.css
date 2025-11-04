@@ -47,6 +47,13 @@
   text-align: center;
 }
 
+.logomute {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  margin: auto;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .top-page {
