@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion Clicker</title>
 
     <link rel="stylesheet" href="../asset/css/fusionclicker.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
-    <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div id="header-placeholder"></div>
 
     <div class="game-container">
+      <button id="back-button" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
 
-        <button id="back-button" class="back-btn">
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
+      <div class="time-selector-container">
+        <button id="time-5s" class="time-btn">5s</button>
+        <button id="time-10s" class="time-btn active">10s</button>
+      </div>
 
-        <div class="time-selector-container">
-            <button id="time-5s" class="time-btn">5s</button>
-            <button id="time-10s" class="time-btn active">10s</button>
+      <main class="game-content">
+        <h1 class="game-title">FUSION CLICKER</h1>
+
+        <div class="score-display">
+          Clicks : <span id="score-value">0</span>
         </div>
 
-
-        <main class="game-content">
-
-            <h1 class="game-title">FUSION CLICKER</h1>
-
-            <div class="score-display">
-                Clicks : <span id="score-value">0</span>
+        <div class="clicker-area">
+          <button id="click-button" class="main-clicker">
+            <div class="clicker-image">
+              <img src="../Iconefinger.png" alt="Cliquer ici" />
             </div>
+          </button>
+        </div>
 
-            <div class="clicker-area">
+        <p class="game-mode">
+          Best score : <span id="best-score-value">0</span>
+        </p>
+      </main>
 
-                <button id="click-button" class="main-clicker">
-                    <div class="clicker-image">
-                        <img src="../Iconefinger.png" alt="Cliquer ici">
-                    </div>
-                </button>
-
-            </div>
-
-            <p class="game-mode">Best score : <span id="best-score-value">0</span></p>
-
-        </main>
-
-        <footer class="game-footer">
-            <button id="play-button" class="play-btn">PLAY</button>
-        </footer>
-
+      <footer class="game-footer">
+        <button id="play-button" class="play-btn">PLAY</button>
+      </footer>
     </div>
 
-    <audio id="click-sound" src="../asset/sounds/uiclick.wav" preload="auto"></audio>
+    <audio id="click-sound" src="./../uiclick.wav" preload="auto"></audio>
 
     <script src="../asset/js/fusionclicker.js" defer></script>
-
-</body>
+  </body>
 </html>
