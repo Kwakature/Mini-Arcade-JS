@@ -4,34 +4,24 @@
   box-sizing: border-box;
 }
 
-body {
-  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);
-  font-family: "Sixtyfour", monospace;
-  min-height: 100vh;
-}
-
 .top-page {
-  background: linear-gradient(180deg, #1e1e3f 0%, #16162e 100%);
-  padding: 20px 40px;
+  background: linear-gradient(180deg, #1e1e3f 0%, #1d1833 100%);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   margin: 20px;
-  border-radius: 50px;
+  border-radius: 100px;
 }
 
 .back-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
 .logo {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  border: 3px solid #4a9eff;
-  box-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
 }
 
 .site-title {
@@ -55,6 +45,13 @@ body {
   letter-spacing: 8px;
   flex: 1;
   text-align: center;
+}
+
+.logomute {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  margin: auto;
 }
 
 /* Responsive */

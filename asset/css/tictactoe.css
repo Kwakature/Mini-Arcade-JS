@@ -1,0 +1,96 @@
+/* Import de la police Sixtyfour */
+@import url("https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap");
+
+body {
+  background-color: #0a0320;
+}
+
+/* Bouton rétro doux */
+.return_button {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 16px;
+  color: #a8e6cf; /* vert menthe pastel */
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf;
+  padding: 18px 36px;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(168, 230, 207, 0.7),
+    inset 0 0 10px rgba(168, 230, 207, 0.3);
+  text-shadow: 0 0 6px rgba(168, 230, 207, 0.8);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Effet hover — couleur changeante pastel */
+.return_button:hover {
+  color: #fd0f0f; /* pêche pastel */
+  border-color: #ff1e1e;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8),
+    inset 0 0 10px rgba(250, 20, 20, 0.4);
+}
+
+/* Section du jeu */
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  height: 100vh;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+}
+
+/* Colonnes */
+.colon1,
+.colon2,
+.colon3 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Cases du plateau */
+.game div[class^="case"] {
+  width: 120px;
+  height: 120px;
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf; /* menthe pastel */
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(168, 230, 207, 0.7),
+    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Effet hover sur une case */
+.game div[class^="case"]:hover {
+  border-color: #ffd3b6; /* pêche pastel */
+  box-shadow: 0 0 18px rgba(255, 211, 182, 0.8),
+    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  transform: scale(1.05);
+}
+
+/* Effet de clic */
+.game div[class^="case"]:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(255, 211, 182, 0.5) inset;
+}
+
+/* Optionnel : effet de grille lumineuse */
+.game {
+  box-shadow: 0 0 40px rgba(168, 230, 207, 0.2);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+/* Images dans les cases */
+.game div[class^="case"] img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
