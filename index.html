@@ -5,39 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game fusion</title>
     <link rel="stylesheet" href="/asset/css/style_index.css" />
-      <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="header-placeholder"></div>
-  <main class="container">
+    <main class="container">
+      <h2 class="subtitle-neon">SELECT<br />GAME</h2>
 
-    <h2 class="subtitle-neon">SELECT<br/>GAME</h2>
+      <br /><br />
 
-    <br><br>
+      <section class="selector">
+        <button
+          id="prev"
+          class="arrow"
+          aria-label="Précédent"
+          title="Jeu précédent"
+        >
+          ≪
+        </button>
 
-    <section class="selector">
-      <button id="prev" class="arrow" aria-label="Précédent" title="Jeu précédent">≪</button>
+        <figure class="selector-photo" aria-label="Présentation du jeu">
+          <img
+            src="asset/img/flapy.png"
+            alt="Illustration du jeu Flappy Bird"
+            class="selector-photo-image"
+          />
+        </figure>
 
-      <figure class="selector-photo" aria-label="Présentation du jeu">
-        <img
-          src="asset/img/flapy.png"
-          alt="Illustration du jeu Flappy Bird"
-          class="selector-photo-image"
-        />
-      </figure>
+        <button
+          id="next"
+          class="arrow"
+          aria-label="Suivant"
+          title="Jeu suivant"
+        >
+          ≫
+        </button>
+      </section>
+      <br />
+      <!-- Nom du jeu sélectionné -->
+      <p id="gameName" class="game-name neon-text" aria-live="polite">
+        Flappy Bird
+      </p>
+      <br /><br />
+      <!-- Bouton PLAY -->
+      <div class="cta-wrap">
+        <button id="playBtn" class="play-btn" aria-label="Lancer le jeu">
+          PLAY
+        </button>
+      </div>
+    </main>
 
-      <button id="next" class="arrow" aria-label="Suivant" title="Jeu suivant">≫</button>
-    </section>
-<br>
-    <!-- Nom du jeu sélectionné -->
-    <p id="gameName" class="game-name neon-text" aria-live="polite">Flappy Bird</p>
-<br><br>
-    <!-- Bouton PLAY -->
-    <div class="cta-wrap">
-      <button id="playBtn" class="play-btn" aria-label="Lancer le jeu">PLAY</button>
-    </div>
-  </main>
-   
     <script src="asset/js/index.js"></script>
   </body>
 </html>
