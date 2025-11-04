@@ -1,57 +1,56 @@
-/* === 1. RÉCUPÉRER LES ÉLÉMENTS DU HTML === */
+/* récup les éléments du HTML */
 const clickButton = document.getElementById('click-button');
 const playButton = document.getElementById('play-button');
 const scoreDisplay = document.getElementById('score-value');
 const scoreLabel = document.querySelector('.score-display');
 const bestScoreDisplay = document.getElementById('best-score-value');
-
-// <-- NOUVEAU : Récupérer les nouveaux boutons
 const backButton = document.getElementById('back-button');
 const time5sButton = document.getElementById('time-5s');
 const time10sButton = document.getElementById('time-10s');
 
+// récup l'élément audio
+const clickSound = document.getElementById('click-sound');
 
-/* === 2. VARIABLES DU JEU === */
+
+/* variables du jeu */
 let clickCount = 0;       
 let gameInProgress = false; 
 
-// <-- MODIFIÉ : 'const' devient 'let' pour pouvoir la changer
+// 'const' devient 'let' pour pouvoir la changer
 let gameDuration = 10; // 10s par défaut (car il est 'active' dans ton HTML)
 
-// <-- MODIFIÉ : On initialise le score à 0. Il sera chargé par une fonction.
+// initialisation du score à 0 -> chargé par une fonction
 let bestScore = 0;
 
 
-/* === 3. ÉTAT INITIAL === */
+/* état de base */
 clickButton.disabled = true;
 
-// <-- MODIFIÉ : On appelle une fonction pour charger le bon score (celui de 10s)
+// appelle une fonction pour charger le bon score (10s)
 loadBestScore();
 
 
-/* === 4. FONCTIONS DU JEU === */
+/* fonctions du jeu */
 
-/**
- * NOUVELLE FONCTION : Charge et affiche le meilleur score
- */
+
+/* charge et affiche le meilleur score */
 function loadBestScore() {
-    // Crée une clé unique (ex: "fusionBestScore_5s" ou "fusionBestScore_10s")
+    // crée une clé unique
     const bestScoreKey = `fusionBestScore_${gameDuration}s`;
     
-    // Charge le score depuis localStorage
+    // charge le score depuis localStorage
     bestScore = parseInt(localStorage.getItem(bestScoreKey)) || 0;
     
-    // Affiche le score
+    // affiche le score
     bestScoreDisplay.textContent = bestScore;
 }
 
-/**
- * NOUVELLE FONCTION : Met à jour la durée du jeu
- */
+
+/* met à jour la durée du jeu */
 function setGameDuration(duration) {
     gameDuration = duration; // Met à jour la variable (5 ou 10)
 
-    // Met à jour le style des boutons
+    // met à jour le style des boutons
     if (duration === 5) {
         time5sButton.classList.add('active');
         time10sButton.classList.remove('active');
@@ -60,30 +59,31 @@ function setGameDuration(duration) {
         time5sButton.classList.remove('active');
     }
 
-    // Charge le meilleur score pour cette durée
+    // charge le meilleur score pour cette durée la
     loadBestScore();
 }
 
-/**
- * NOUVELLE FONCTION : Gère le clic sur le bouton retour
- */
+/*gère le clic sur le bouton retour */
 function goBack() {
-    // Action simple : revenir à la page précédente (comme la flèche du navigateur)
-    // Si tu veux aller à une page précise (ex: "index.html"), change la ligne :
-    // window.location.href = "index.html"; 
+    // revenir au menu de gamefusion
     history.back();
 }
 
 
-/**
- * Fonction appelée quand on clique sur "PLAY" ou "REJOUER"
- */
+
+ /* fonction appelée quand on clique sur "play" ou "rejouer" */
 function startGame() {
-    // 1. Réinitialiser les variables
+    //reset les variables
     clickCount = 0;
     gameInProgress = true;
 
-    // 2. Mettre à jour l'interface (UI)
+    //
+    // On active le son pour le navigateur
+    if (clickSound) {
+        clickSound.load(); 
+    }
+
+    // MAJ de l'interface
     scoreDisplay.textContent = 0; 
     scoreLabel.childNodes[0].nodeValue = "Clicks : "; 
     
@@ -91,64 +91,66 @@ function startGame() {
     clickButton.disabled = false;   
     playButton.textContent = "CLIQUEZ VITE !"; 
 
-    // <-- NOUVEAU : Désactiver les boutons de temps et retour
+    // désactiver les boutons de temps et retour
     time5sButton.disabled = true;
     time10sButton.disabled = true;
     backButton.disabled = true;
 
-    // 3. Lancer le minuteur
-    // MODIFIÉ : utilise la variable 'gameDuration'
+    /* lancer le minuteur */
     setTimeout(endGame, gameDuration * 1000); 
 }
 
-/**
- * Fonction appelée quand le joueur clique sur le gros bouton
- */
+
+ /* fonction appelée quand on clique sur le gros bouton */
 function handleUserClick() {
     if (gameInProgress) {
         clickCount++; 
         scoreDisplay.textContent = clickCount; 
+
+        // joue le son de clic
+        if (clickSound) { // vérifie si le son existe
+            clickSound.currentTime = 0; // rembobine
+            clickSound.play(); // joue
+        }
     }
 }
 
-/**
- * Fonction appelée par le minuteur quand le temps est écoulé
- */
+ /* fonction appelée par le minuteur quand le temps est écoulé */
 function endGame() {
-    // 1. Arrêter la partie
+    // arrêter la partie
     gameInProgress = false;
 
-    // 2. Mettre à jour l'interface (UI)
+    // MAJ de l'interface
     playButton.disabled = false;  
     clickButton.disabled = true;  
     playButton.textContent = "REJOUER ?"; 
 
-    // <-- NOUVEAU : Réactiver les boutons de temps et retour
+    // réactiver les boutons de temps et retour
     time5sButton.disabled = false;
     time10sButton.disabled = false;
     backButton.disabled = false;
 
-    // 3. Afficher le score final (le nombre de clics)
-    // MODIFIÉ : 'GAME_DURATION' devient 'gameDuration'
+    // afficher le score final (nbr de clics)
+    // 'GAME_DURATION' devient 'gameDuration'
     scoreLabel.childNodes[0].nodeValue = `Score (${gameDuration}s) : `;
     scoreDisplay.textContent = clickCount;
 
-    // 4. Mettre à jour le meilleur score
+    // 4. MAJ le meilleur score
     if (clickCount > bestScore) {
         bestScore = clickCount; 
         bestScoreDisplay.textContent = bestScore; 
         
-        // <-- MODIFIÉ : Sauvegarde avec la clé dynamique
+        /* sauvegarde avec la clé dynamique */
         const bestScoreKey = `fusionBestScore_${gameDuration}s`;
         localStorage.setItem(bestScoreKey, bestScore);
     }
 }
 
-/* === 5. CONNECTER LES FONCTIONS AUX BOUTONS === */
+/* connecter les fonctions aux boutons */
 playButton.addEventListener('click', startGame);
 clickButton.addEventListener('click', handleUserClick);
 
-// <-- NOUVEAU : Connecter les nouveaux boutons
+/* connecter les nouveaux boutons */
 backButton.addEventListener('click', goBack);
 time5sButton.addEventListener('click', () => setGameDuration(5));
 time10sButton.addEventListener('click', () => setGameDuration(10));

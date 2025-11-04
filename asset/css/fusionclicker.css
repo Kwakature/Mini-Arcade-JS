@@ -1,5 +1,5 @@
-/* === THÈME GLOBAL & VARIABLES === */
-/* (Ceci est repris de ta base) */
+
+
 
 * { 
     box-sizing: border-box; 
@@ -14,33 +14,28 @@ html, body {
     --neon1: #FFA726;
     --neon2: #FFD54F;
     --glow-red: #ff2d2d;
-    --btn: #A02A6C; /* Rose pour les boutons */
+    --btn: #A02A6C; 
 }
 
 body {
     margin: 0;
     background: var(--bg);
     font-family: "Sixtyfour", system-ui, sans-serif;
-    color: var(--neon2); /* Couleur de texte par défaut */
+    color: var(--neon2); 
     letter-spacing: 0.08em;
     
-    /* Ajout pour centrer le jeu à l'écran */
+    /* centrer le jeu a l'écran*/
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Cache le H1 "Bienvenue" qui est en double */
-body > h1 {
-    display: none;
-}
-
-/* === STRUCTURE DU JEU === */
+/* structure du jeu */
 
 .game-container {
-    max-width: 450px; /* Largeur type mobile */
+    max-width: 450px; /* largeur type mobile */
     width: 95%;
-    height: 90vh; /* Hauteur type mobile */
+    height: 90vh; /* hauteur type mobile */
     max-height: 800px;
     margin: 0 auto;
     padding: 24px 20px 32px;
@@ -52,18 +47,18 @@ body > h1 {
     
     justify-content: flex-start; 
     
-    /* Look de la "borne d'arcade" */
+    /* le rectangle qui entoure le jeu */
     background: #0d0529;
     border-radius: 20px;
     box-shadow: 0 0 40px rgba(255, 0, 0, 0.25), 
                 inset 0 0 15px rgba(0,0,0,0.5);
 
-    /* Indispensable pour positionner les nouveaux boutons */
+    /* besoin pour positionner les nouveaux boutons */
     position: relative;
 }
 
 .game-content {
-    /* Ce conteneur va centrer le titre, le score, etc. */
+    /* centrer le titre */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,18 +66,18 @@ body > h1 {
 
 .game-footer {
     width: 100%;
-    margin-top: 20px; /* Espace au-dessus du bouton PLAY */
+    margin-top: 20px; /* l'espace au-dessus du bouton play */
 }
 
 
-/* === ÉLÉMENTS DU JEU === */
+/* éléments du jeu */
 
 .game-title {
     font-family: 'Sixtyfour', monospace;
-    font-size: 48px; /* Un peu plus petit pour mobile */
+    font-size: 48px; /* un peu plus petit pour mobile */
     font-weight: 400;
     
-    /* Marge du HAUT pour laisser la place aux boutons */
+    /* margin du haut pour laisser la place aux boutons */
     margin: 80px 0 40px 0;
 
     background: linear-gradient(180deg,
@@ -102,7 +97,7 @@ body > h1 {
     line-height: 1.1;
 }
 
-/* Style pour l'affichage du score */
+/* style pour l'affichage du score */
 .score-display {
     font-size: 26px;
     margin-bottom: 20px;
@@ -120,14 +115,14 @@ body > h1 {
 
 .clicker-area {
     display: flex;
-    justify-content: center; /* Centre horizontalement */
+    justify-content: center; /* centrer horizontalement */
     align-items: center;
     gap: 12px;
     margin-top: 15px;
     width: 100%;
 }
 
-/* Bouton de clic principal (le gros rose) */
+/* gros boutons rose*/
 .main-clicker {
     background-color: var(--btn);
     border: 2px solid #ff79c6;
@@ -151,30 +146,7 @@ body > h1 {
     box-shadow: 0 4px 0 #6d1b4a, 0 8px 10px rgba(0,0,0,0.4);
 }
 
-
-/* Flèches (règle gardée au cas où) */
-.arrow {
-    background: none;
-    border: none;
-    font: inherit;
-    color: var(--neon2);
-    text-shadow:
-        0 0 10px rgba(255,180,0,0.35),
-        0 0 22px var(--glow-red);
-    font-size: 42px;
-    cursor: pointer;
-    transition: transform .12s ease, filter .12s ease;
-    user-select: none;
-}
-.arrow:hover { 
-    transform: translateY(-2px) scale(1.06); 
-    filter: brightness(1.25); 
-}
-.arrow:active { 
-    transform: translateY(0) scale(0.98); 
-}
-
-/* Nom du mode de jeu */
+/*class qui sert à rien mais elle permet de laisser respirer le texte donc bénéf */
 .game-mode {
     margin: 24px auto 40px;
     font-size: 22px;
@@ -188,7 +160,7 @@ body > h1 {
 }
 
 
-/* Bouton PLAY */
+/* Bouton play */
 .play-btn {
     font: inherit;
     color: #ffd89f;
@@ -219,13 +191,13 @@ body > h1 {
     transform: translateY(0); 
 }
 
-/* === NOUVEAUX BOUTONS (Retour & Temps) === */
 
-/* Style pour le bouton Retour (en haut à gauche) */
+
+/* bouton retour */
 .back-btn {
     position: absolute;
-    top: 24px; /* Aligné avec le padding du conteneur */
-    left: 20px; /* Aligné avec le padding du conteneur */
+    top: 24px; /* aligné avec le padding du conteneur */
+    left: 20px; /* aligné avec le padding du conteneur */
     
     background: none;
     border: 2px solid var(--neon2);
@@ -244,17 +216,17 @@ body > h1 {
     color: #ffffff;
 }
 
-/* Conteneur pour les boutons 5s/10s (en haut à droite) */
+/* conteneur pour les boutons 5s/10s */
 .time-selector-container {
     position: absolute;
     top: 24px;
     right: 20px;
     display: flex;
-    flex-direction: row; /* <--- C'EST LA CORRECTION ICI */
-    gap: 10px; /* Espace entre les deux boutons */
+    flex-direction: row; 
+    gap: 10px; /* espace entre les deux boutons */
 }
 
-/* Style commun pour les boutons 5s et 10s */
+/* style pour les boutons 5s et 10s */
 .time-btn {
     font-family: "Sixtyfour", system-ui, sans-serif;
     background: none;
@@ -273,7 +245,7 @@ body > h1 {
     color: #ff79c6;
 }
 
-/* Style pour le bouton de temps ACTIF (sélectionné) */
+/* style pour le bouton de temps sélectionné */
 .time-btn.active {
     background: var(--btn);
     border-color: #ff79c6;
