@@ -33,13 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastFrame = 0;      // temps de la dernière image
   let idleWave = 0;       // animation du bird quand il ne joue pas
   let godMode = false;    // mode invincible (aucune collision)
-  let funSpeedMode = false; // mode “vitesse boostée”
+  let funSpeedMode = false;      // mode “vitesse boostée” après 3 appuis sur V
+  let funSpeedPressCount = 0;    // nombre d'appuis pour débloquer la vitesse x20
+  let funSpeedMultiplier = 1;    // multiplicateur de vitesse courant
   let hintTimerId = null;   // timer pour cacher automatiquement les messages
 
   // Données liées à la scène
-  let bounds = { min: 0, max: 0 }; // limites haut/bas du bird
-  let pipeSpacing = 220;           // distance entre les tuyaux
-  let pipeSpeed = 2.2;             // vitesse de défilement des tuyaux
+  let bounds = { min: 0, max: 0 };     // limites haut/bas du bird
+  let pipeSpacingMin = PIPE_SPACING_MIN; // espacement horizontal minimal entre les tuyaux
+  let pipeSpacingMax = PIPE_SPACING_MIN + 80; // espacement horizontal maximal entre les tuyaux
+  let pipeSpeed = 2.2;               // vitesse de défilement des tuyaux
   let nextPipeX = 0;               // position du prochain tuyau à générer
   const pipes = [];                // tableau contenant les tuyaux
 
@@ -54,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Retourne un nombre aléatoire entre min et max
   const randomBetween = (min, max) => min + Math.random() * (max - min);
+
+  // Calcule un espacement horizontal aléatoire dans les bornes autorisées
+  const pickPipeSpacing = () => randomBetween(pipeSpacingMin, pipeSpacingMax);
 
   // Met à jour le score à l’écran
   const setScore = (value) => {
@@ -139,7 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
     bounds = { min: 0, max: Math.max(screenHeight - birdHeight, 0) };
     birdY = clamp(birdY, bounds.min, bounds.max);
 
-    pipeSpacing = Math.max(PIPE_SPACING_MIN, screenWidth * 0.58);
+    const baseSpacing = Math.max(PIPE_SPACING_MIN, screenWidth * 0.54);
+    pipeSpacingMin = Math.max(PIPE_SPACING_MIN, baseSpacing * 0.85);
+    pipeSpacingMax = Math.max(pipeSpacingMin + 60, baseSpacing * 1.15);
     pipeSpeed = Math.max(2.1, screenWidth / 240);
     nextPipeX = screenWidth * 1.1;
   };
@@ -210,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const pipe = createPipePair();
       pipes.push(pipe);
       randomizePipe(pipe, cursor);
-      cursor += pipeSpacing;
+      cursor += pickPipeSpacing();
     }
     nextPipeX = cursor;
   };
@@ -228,9 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fait avancer les tuyaux et vérifie les collisions
   const advancePipes = (delta) => {
-    const birdRect = bird.getBoundingClientRect();
+    const birdRect = bird.getBoundingClientRect(); // aille d'un élément et sa position relative par rapport à la zone d'affichage
     let collision = false;
-    const speedFactor = funSpeedMode ? 2 : 1;
+    const speedFactor = funSpeedMultiplier;
 
     for (const pipe of pipes) {
       pipe.x -= pipeSpeed * delta * speedFactor;
@@ -238,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Si un tuyau sort de l’écran, on le replace à droite
       if (pipe.x + pipe.top.offsetWidth < -60) {
         randomizePipe(pipe, nextPipeX);
-        nextPipeX += pipeSpacing;
+        nextPipeX += pickPipeSpacing();
       } else {
         positionPipe(pipe);
       }
@@ -370,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
   requestAnimationFrame(loop);
 
   // === MODES SECRETS ===
-  // God mode : Ctrl/Cmd + Shift + Espace
+  // God mode : Cmd/Ctrl + Shift + G
   document.addEventListener("keydown", (event) => {
     if (event.code !== "KeyG" || event.repeat) return;
     if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) return;
@@ -379,12 +387,27 @@ document.addEventListener("DOMContentLoaded", () => {
     showHint(godMode ? "Good mode activé — aucune collision" : "Good mode désactivé");
   });
 
-  // Fun speed mode : Ctrl/Cmd + Shift + V
+  // Fun speed mode : Cmd/Ctrl + Shift + V (3x) pour passer en x20 (juste pour le fun)
   document.addEventListener("keydown", (event) => {
     if (event.code !== "KeyV" || event.repeat) return;
-    if (!event.shiftKey || !(event.metaKey || event.ctrlKey)) return;
+    if (!event.shiftKey || !(event.metaKey || event.ctrlKey) || event.altKey) return;
     event.preventDefault();
-    funSpeedMode = !funSpeedMode;
-    showHint(funSpeedMode ? "Fun speed activé — tout va plus vite !" : "Fun speed désactivé");
+    if (funSpeedMode) {
+      funSpeedMode = false;
+      funSpeedMultiplier = 1;
+      funSpeedPressCount = 0;
+      showHint("Fun speed désactivé");
+      return;
+    }
+    funSpeedPressCount += 1;
+    if (funSpeedPressCount >= 3) {
+      funSpeedMode = true;
+      funSpeedMultiplier = 20;
+      funSpeedPressCount = 0;
+      showHint("Fun speed x20 activé — tout va plus vite !");
+    } else {
+      const remaining = 3 - funSpeedPressCount;
+      showHint(`Fun speed: encore ${remaining} appui(s) sur V…`);
+    }
   });
 });
