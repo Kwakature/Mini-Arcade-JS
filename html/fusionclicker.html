@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion Clicker</title>
-    <link rel="stylesheet" href="/fusionclicker.css" />
+
+    <link rel="stylesheet" href="../asset/css/fusionclicker.css" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  </head>
-  <body>
+
+    <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
+</head>
+<body>
     <div id="header-placeholder"></div>
 
-    <h1>Bienvenue dans Fusion Clicker</h1>
-  <div class="game-container">
+    <div class="game-container">
+
+        <button id="back-button" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <div class="time-selector-container">
+            <button id="time-5s" class="time-btn">5s</button>
+            <button id="time-10s" class="time-btn active">10s</button>
+        </div>
+
 
         <main class="game-content">
 
@@ -22,16 +35,14 @@
             </div>
 
             <div class="clicker-area">
-                <span class="arrow arrow-left">&lt;&lt;</span>
-                
+
                 <button id="click-button" class="main-clicker">
-                    <img src="img/click-hand-icon.png" alt="Cliquer ici">
+                    <img src="../Iconefinger.png" alt="Cliquer ici">
                 </button>
-                
-                <span class="arrow arrow-right">&gt;&gt;</span>
+
             </div>
 
-            <p class="game-mode">FUSION CLICKER</p>
+            <p class="game-mode">Best score : <span id="best-score-value">0</span></p>
 
         </main>
 
@@ -40,6 +51,10 @@
         </footer>
 
     </div>
+
+    <audio id="click-sound" src="../asset/sounds/uiclick.wav" preload="auto"></audio>
+
+    <script src="../asset/js/fusionclicker.js" defer></script>
 
 </body>
 </html>

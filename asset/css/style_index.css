@@ -54,8 +54,6 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 1.875rem rgba(255, 140, 0, 0.5);
-  letter-spacing: 0.5rem;
   text-align: center;
 }
 
@@ -104,14 +102,6 @@ body {
 /* Cadre contenant la photo mise en avant */
 .selector-photo{
   margin: 0 auto;
-  max-width: min(18rem, 24vw);
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  max-height: clamp(13rem, 34vh, 18rem);
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.25rem;
-  background: var(--bg);
 }
 /* Image responsive avec halo pour rappeler l'écran */
 .selector-photo-image{
@@ -125,8 +115,6 @@ body {
 }
 .selector-photo-image[data-variant="mobile"]{
   box-shadow:
-    0 0.75rem 2.25rem rgba(0,0,0,0.6),
-    0 0 1.5rem rgba(255,0,128,0.25);
 }
 .selector-photo-image.is-animating{
   pointer-events: none;
@@ -261,6 +249,3 @@ body {
     animation: none !important;
   }
 }
-  .selector-photo-image[data-variant="mobile"]{
-    filter: saturate(1.2) hue-rotate(-12deg);
-  }
