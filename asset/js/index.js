@@ -95,11 +95,17 @@ function initGameCarousel() {
       imageDesktop: "./../asset/img/tictactoe.png",
       link: "./../html/tictactoe.html",
     },
-        {
+    {
       name: "Fusionn clicker",
       image: "asset/img/Fusionclicker.png",
       imageDesktop: "./../asset/img/Fusionclicker.png",
       link: "./../html/Fusionclicker.html",
+    },
+    {
+      name: "PFS",
+      image: "asset/img/PFS.png",
+      imageDesktop: "./../asset/img/PFS.png",
+      link: "./../../html/PFS.html",
     },
   ];
 
@@ -195,7 +201,7 @@ function initGameCarousel() {
       easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
       fill: "forwards",
     });
-    return animation.finished.catch(() => {});
+    return animation.finished.catch(() => { });
   }
 
   function updateGame(nextIndex) {
