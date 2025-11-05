@@ -1,0 +1,304 @@
+/* Import de la police Sixtyfour */
+@import url("https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0320;
+  font-family: "Sixtyfour", sans-serif;
+}
+
+/* Header avec bouton retour */
+.header {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Bouton rétro doux */
+.return_button,
+.button_reset {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 16px;
+  color: #a8e6cf;
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf;
+  padding: 18px 36px;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(168, 230, 207, 0.7),
+    inset 0 0 10px rgba(168, 230, 207, 0.3);
+  text-shadow: 0 0 6px rgba(168, 230, 207, 0.8);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Effet hover – couleur changeante pastel */
+.return_button:hover,
+.button_reset:hover {
+  color: #fd0f0f;
+  border-color: #ff1e1e;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8),
+    inset 0 0 10px rgba(250, 20, 20, 0.4);
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.8);
+}
+
+/* Container principal du jeu */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+  gap: 30px;
+}
+
+/* Titre du jeu */
+.game-title {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 48px;
+  color: #a8e6cf;
+  text-shadow: 0 0 20px rgba(168, 230, 207, 0.8),
+    0 0 40px rgba(168, 230, 207, 0.5);
+  letter-spacing: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(168, 230, 207, 0.8),
+      0 0 40px rgba(168, 230, 207, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(168, 230, 207, 1),
+      0 0 60px rgba(168, 230, 207, 0.7);
+  }
+}
+
+/* ====== AJOUT: Styles pour la sélection du mode de jeu ====== */
+.mode-selection {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 10px;
+}
+
+.radio-label {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 16px;
+  color: #a8e6cf;
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf;
+  padding: 15px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(168, 230, 207, 0.5),
+    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.radio-label:hover {
+  border-color: #ffd3b6;
+  box-shadow: 0 0 15px rgba(255, 211, 182, 0.7),
+    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  color: #ffd3b6;
+  text-shadow: 0 0 8px rgba(255, 211, 182, 0.6);
+  transform: scale(1.05);
+}
+
+.radio-input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #a8e6cf;
+  border-radius: 50%;
+  background-color: #1b1b1b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 0 8px rgba(168, 230, 207, 0.5);
+}
+
+.radio-input:checked {
+  border-color: #ffd3b6;
+  box-shadow: 0 0 15px rgba(255, 211, 182, 0.8);
+}
+
+.radio-input:checked::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ffd3b6;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(255, 211, 182, 0.9);
+}
+
+.radio-input:checked + .radio-text {
+  color: #ffd3b6;
+  text-shadow: 0 0 10px rgba(255, 211, 182, 0.8);
+}
+
+.radio-label:has(.radio-input:checked) {
+  border-color: #ffd3b6;
+  box-shadow: 0 0 20px rgba(255, 211, 182, 0.8),
+    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  transform: scale(1.08);
+}
+/* ====== FIN AJOUT ====== */
+
+/* Section du jeu avec grille et joueurs */
+.game-section {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Section de la grille */
+.game {
+  display: flex;
+  gap: 15px;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(168, 230, 207, 0.2);
+}
+
+/* Colonnes */
+.colon1,
+.colon2,
+.colon3 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Cases du plateau */
+.game div[class^="case"] {
+  width: 120px;
+  height: 120px;
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(168, 230, 207, 0.7),
+    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  font-family: "Sixtyfour", sans-serif;
+}
+
+/* Effet hover sur une case */
+.game div[class^="case"]:hover {
+  border-color: #ffd3b6;
+  box-shadow: 0 0 18px rgba(255, 211, 182, 0.8),
+    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  transform: scale(1.05);
+}
+
+/* Effet de clic */
+.game div[class^="case"]:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(255, 211, 182, 0.5) inset;
+}
+
+/* Images dans les cases */
+.game div[class^="case"] img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Styles des joueurs */
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.player {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 24px;
+  color: #a8e6cf;
+  text-shadow: 0 0 10px rgba(168, 230, 207, 0.6);
+  padding: 15px 25px;
+  background-color: #1b1b1b;
+  border: 3px solid #a8e6cf;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(168, 230, 207, 0.5),
+    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 200px;
+}
+
+.player.active {
+  color: #ffd3b6;
+  border-color: #ffd3b6;
+  box-shadow: 0 0 20px rgba(255, 211, 182, 0.8),
+    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  text-shadow: 0 0 10px rgba(255, 211, 182, 0.8);
+  transform: scale(1.1);
+}
+
+/* Section bouton reset */
+.button-section {
+  margin-top: 20px;
+}
+
+/* texte de score */
+.score_player1_text,
+.score_player2_text {
+  color: white;
+  margin: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .game-section {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .players {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .game-title {
+    font-size: 32px;
+  }
+
+  .game div[class^="case"] {
+    width: 90px;
+    height: 90px;
+    font-size: 45px;
+  }
+
+  /* AJOUT: Responsive pour les boutons radio */
+  .mode-selection {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .radio-label {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+  /* FIN AJOUT */
+}
