@@ -1,4 +1,3 @@
-
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
@@ -63,6 +62,7 @@ body {
   padding: 3rem 1.25rem 4rem;
   text-align: center;
 }
+
 /* Titre principal avec effet dégradé façon arcade */
 .title{
   font-family: 'Sixtyfour', monospace;
@@ -91,7 +91,6 @@ body {
   letter-spacing: 0.18em;
 }
 
-
 .selector{
   display: grid;
   grid-template-columns: 1fr minmax(16rem, 24rem) 1fr;
@@ -99,26 +98,34 @@ body {
   gap: 1rem;
   margin-top: 1.75rem;
 }
-/* Cadre contenant la photo mise en avant */
-.selector-photo{
+
+/* ---- Image Desktop ---- */
+.selector-photo {
   margin: 0 auto;
+  width: 100%;
+  max-width: 18rem; /* taille max sur desktop */
+  aspect-ratio: 3 / 4; /* ratio constant */
+  overflow: hidden; /* empêche toute image de dépasser */
+  border-radius: 1.75rem;
 }
-/* Image responsive avec halo pour rappeler l'écran */
-.selector-photo-image{
-  display: block;
+
+.selector-photo-image {
   width: 100%;
   height: 100%;
-  border-radius: 1rem;
   object-fit: cover;
   object-position: center;
-  will-change: transform, opacity;
+  border-radius: inherit;
+  display: block;
+  box-shadow: 0 0 1.25rem rgba(255, 200, 100, 0.3);
 }
+
 .selector-photo-image[data-variant="mobile"]{
   box-shadow: none; 
 }
 .selector-photo-image.is-animating{
   pointer-events: none;
 }
+
 .arrow{
   background: none;
   border: none;
@@ -135,14 +142,12 @@ body {
 .arrow:hover{ transform: translateY(-0.125rem) scale(1.06); filter: brightness(1.25); }
 .arrow:active{ transform: translateY(0) scale(0.98); }
 
-
 .game-name{
   margin: 2.125rem auto 1.375rem;
   font-size: clamp(1.25rem, 3.4vw, 2.25rem);
   letter-spacing: .18em;
   color: #FFC94A;
 }
-
 
 .cta-wrap{ display: flex; justify-content: center; margin-top: 0.625rem; }
 .play-btn{
@@ -172,12 +177,7 @@ body {
 }
 .play-btn:active{ transform: translateY(0); }
 
-
-@media (min-width: 62rem){
-  .container{ padding-bottom: 5.5rem; }
-  .subtitle{ margin-top: 4.75rem; }
-}
-
+/* ---- MOBILE (≤768px) ---- */
 @media (max-width: 48rem){
   .subtitle-neon{
     font-size: clamp(2.75rem, 8vw, 4rem);
@@ -211,6 +211,13 @@ body {
     grid-column: 2;
   }
 
+  .selector-photo-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 0 0.8rem rgba(255, 180, 0, 0.25);
+  }
+
   .arrow{
     font-size: clamp(2.25rem, 8vw, 3rem);
   }
@@ -222,6 +229,7 @@ body {
   }
 }
 
+/* ---- TRÈS PETIT ÉCRAN (≤480px) ---- */
 @media (max-width: 30rem){
   .container{
     padding: 2rem 1rem 3rem;
@@ -234,7 +242,7 @@ body {
 
   .selector-photo{
     max-width: 90vw;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
   }
 
   .play-btn{

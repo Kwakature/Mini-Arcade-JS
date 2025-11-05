@@ -87,7 +87,7 @@ function initGameCarousel() {
       name: "Flappy Bird",
       image: "asset/img/flappy.png",
       imageDesktop: "asset/img/flappy.png",
-      imageMobile: "asset/img/flappy-mobile.png",
+      imageMobile: "asset/img/flappy.png",
       link: "/html/Flappy-Bird.html",
     },
     {
