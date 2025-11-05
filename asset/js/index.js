@@ -87,21 +87,18 @@ function initGameCarousel() {
       name: "Flappy Bird",
       image: "asset/img/flappy.png",
       imageDesktop: "./../asset/img/flappy.png",
-      imageMobile: "./../asset/img/flappy.png",
       link: "./../html/Flappy-Bird.html",
     },
     {
       name: "Tic Tac Toe",
       image: "asset/img/tictactoe.png",
       imageDesktop: "./../asset/img/tictactoe.png",
-      imageMobile: "./../asset/img/tictactoe.png",
       link: "./../html/tictactoe.html",
     },
         {
-      name: "Fusionclicker",
+      name: "Fusionn clicker",
       image: "asset/img/Fusionclicker.png",
       imageDesktop: "./../asset/img/Fusionclicker.png",
-      imageMobile: "./../asset/img/Fusionclicker.png",
       link: "./../html/Fusionclicker.html",
     },
   ];
