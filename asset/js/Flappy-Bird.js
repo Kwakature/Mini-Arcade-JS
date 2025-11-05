@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // === CONSTANTES DU JEU ===
-  const GRAVITY = 0.45;         // force de gravité qui attire le bird vers le bas
+  const GRAVITY = 0.45;         // force de la gravité
   const JUMP_VELOCITY = -6.2;   // force du saut
   const MAX_FALL = 8;           // vitesse maximale de chute
   const PIPE_COUNT = 100;       // nombre total de tuyaux générés à l’avance
@@ -376,6 +376,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Démarre le jeu
   resetGame();
   requestAnimationFrame(loop);
+
+
+
+
+
+
 
   // === MODES SECRETS ===
   // God mode : Cmd/Ctrl + Shift + G
