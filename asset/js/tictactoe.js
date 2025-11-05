@@ -13,6 +13,7 @@ const affplayer1 = document.querySelector(".player1");
 const affplayer2 = document.querySelector(".player2");
 const score1 = document.querySelector(".score_player1");
 const score2 = document.querySelector(".score_player2");
+const titlepage = document.querySelector(".game-title");
 
 let player1 = true;
 let player2 = false;
@@ -40,7 +41,6 @@ function addImg(caseSelect, img) {
   if (gameBoard[caseNumber] !== "" || !gameActive) {
     return;
   }
-
   // Mettre à jour le tableau de jeu
   gameBoard[caseNumber] = player1 ? "X" : "O";
 
@@ -87,6 +87,7 @@ function addImg(caseSelect, img) {
 
   // Vérifier s'il y a un gagnant ou match nul
   checkWinner();
+  winnerMessage();
 }
 
 function selectImgInvers() {
@@ -119,17 +120,18 @@ function checkWinner() {
   }
 
   if (roundWon) {
-    const winner = player1 ? "Joueur 1 (O)" : "Joueur 2 (X)";
+    const winner = player1 ? "Joueur 2 (0)" : "Joueur 1 (X)";
     setTimeout(() => {
       alert(`${winner} a gagné ! 🎉`);
       resetGame();
-      if (winner == "Joueur 1 (O)") {
+      if (winner == "Joueur 1 (X)") {
         scorePlayer1 = scorePlayer1 + 1;
         score1.innerHTML = scorePlayer1;
       } else {
         scorePlayer2 = scorePlayer2 + 1;
         score2.innerHTML = scorePlayer2;
       }
+      winnerMessage();
     }, 100);
     gameActive = false;
     return;
@@ -143,6 +145,14 @@ function checkWinner() {
     }, 100);
     gameActive = false;
     return;
+  }
+}
+
+function winnerMessage() {
+  if (scorePlayer1 == 3) {
+    titlepage.innerHTML = `Joueur 1 a Gagner 🏆 <p>: ${scorePlayer1} : ${scorePlayer2} :</p>`;
+  } else if (scorePlayer2 == 3) {
+    titlepage.innerHTML = `Joueur 2 a Gagner 🏆 <p>: ${scorePlayer1} : ${scorePlayer2} :</p>`;
   }
 }
 
@@ -231,6 +241,7 @@ returnButton.addEventListener("click", () => {
 buttonReset.addEventListener("click", () => {
   init();
   resetScore();
+  titlepage.innerHTML = `TIC TAC TOE`;
 });
 
 function init() {
