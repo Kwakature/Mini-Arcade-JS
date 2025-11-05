@@ -180,13 +180,115 @@ body {
     inset 0 0 30px rgba(255, 68, 0, 0.4);
 }
 
+/* Bouton PLAY - Vert */
+.button_player button.play {
+  background: linear-gradient(145deg, #00ff44, #00cc33);
+  border: 3px solid #00ff66;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 68, 0.3),
+    inset 0 0 20px rgba(0, 255, 136, 0.2);
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ff44, 0 0 20px #00ff44, 0 0 30px #00ff66;
+  letter-spacing: 2px;
+}
+
+.button_player button.play::before {
+  background: linear-gradient(45deg, #00ff44, #00ff88, #00ff44);
+}
+
+.button_player button.play:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 255, 68, 0.6),
+    0 0 40px rgba(0, 255, 136, 0.4), inset 0 0 30px rgba(0, 255, 136, 0.3);
+  border-color: #00ff88;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 30px rgba(0, 255, 68, 0.6),
+    0 0 40px rgba(0, 255, 170, 0.4);
+}
+
+.button_player button.play:hover::before {
+  opacity: 1;
+  animation: neonPulseGreen 1.5s infinite;
+}
+
+@keyframes neonPulseGreen {
+  0%,
+  100% {
+    box-shadow: 0 0 10px #00ff44, 0 0 20px #00ff44, 0 0 30px #00ff66;
+  }
+  50% {
+    box-shadow: 0 0 20px #00ff66, 0 0 30px #00ff66, 0 0 40px #00ff88;
+  }
+}
+
+.button_player button.play:active {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 255, 136, 0.8),
+    inset 0 0 30px rgba(0, 255, 68, 0.4);
+}
+
+/* Bouton Retour - Rouge */
+.button_player button.retour {
+  background: linear-gradient(145deg, #ff0044, #cc0033);
+  border: 3px solid #ff0066;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 68, 0.3),
+    inset 0 0 20px rgba(255, 0, 136, 0.2);
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff0044, 0 0 20px #ff0044, 0 0 30px #ff0066;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.button_player button.retour::before {
+  background: linear-gradient(45deg, #ff0044, #ff0088, #ff0044);
+}
+
+.button_player button.retour:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 0, 68, 0.6),
+    0 0 40px rgba(255, 0, 136, 0.4), inset 0 0 30px rgba(255, 0, 136, 0.3);
+  border-color: #ff0088;
+  text-shadow: 0 0 20px rgba(255, 0, 136, 0.8), 0 0 30px rgba(255, 0, 68, 0.6),
+    0 0 40px rgba(255, 0, 170, 0.4);
+}
+
+.button_player button.retour:hover::before {
+  opacity: 1;
+  animation: neonPulseRed 1.5s infinite;
+}
+
+@keyframes neonPulseRed {
+  0%,
+  100% {
+    box-shadow: 0 0 10px #ff0044, 0 0 20px #ff0044, 0 0 30px #ff0066;
+  }
+  50% {
+    box-shadow: 0 0 20px #ff0066, 0 0 30px #ff0066, 0 0 40px #ff0088;
+  }
+}
+
+.button_player button.retour:active {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 0, 136, 0.8),
+    inset 0 0 30px rgba(255, 0, 68, 0.4);
+}
+
 .img_jeu {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: auto;
   object-fit: contain;
   padding: 20px;
   filter: drop-shadow(0 0 10px rgba(255, 136, 0, 0.5));
   transition: filter 0.3s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ciseau,
+.feuille,
+.pierre {
   user-select: none;
 }
 
@@ -195,16 +297,7 @@ body {
     drop-shadow(0 0 25px rgba(255, 68, 0, 0.6));
 }
 
-/* Style pour les icônes emoji */
-.icon {
-  font-size: 80px;
-  display: block;
-  filter: drop-shadow(0 0 10px rgba(255, 136, 0, 0.5));
-  transition: all 0.3s ease;
-  text-shadow: 0 0 20px rgba(255, 136, 0, 0.6), 0 0 30px rgba(255, 68, 0, 0.4);
-}
-
-.button_player button:hover .icon {
+.button_player button:hover {
   filter: drop-shadow(0 0 15px rgba(255, 136, 0, 0.8))
     drop-shadow(0 0 25px rgba(255, 68, 0, 0.6));
   text-shadow: 0 0 30px rgba(255, 136, 0, 0.8), 0 0 40px rgba(255, 68, 0, 0.6),
