@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TicTacToe</title>
+    <link rel="stylesheet" href="/asset/css/tictactoeV2.css" />
+  </head>
+  <body>
+    <section class="header">
+      <button class="return_button">RETOUR</button>
+    </section>
+
+    <div class="game-container">
+      <h1 class="game-title">TIC TAC TOE</h1>
+
+      <!-- AJOUT: Section pour choisir le mode de jeu -->
+      <div class="mode-selection">
+        <label class="radio-label">
+          <input
+            type="radio"
+            name="gameMode"
+            value="pvp"
+            checked
+            class="radio-input"
+          />
+          <span class="radio-text">JOUEUR VS JOUEUR</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="gameMode" value="pvc" class="radio-input" />
+          <span class="radio-text">JOUEUR VS ROBOT</span>
+        </label>
+      </div>
+      <!-- FIN AJOUT -->
+
+      <div class="game-section">
+        <div class="players">
+          <div class="player player1 active" id="player1">JOUEUR 1<br />X</div>
+          <!-- MODIFICATION: Texte changera dynamiquement entre JOUEUR 2 et ROBOT -->
+          <div class="player player2" id="player2">JOUEUR 2<br />O</div>
+        </div>
+
+        <section class="game">
+          <section class="colon1">
+            <div class="case1" data-case="0"></div>
+            <div class="case2" data-case="1"></div>
+            <div class="case3" data-case="2"></div>
+          </section>
+          <section class="colon2">
+            <div class="case4" data-case="3"></div>
+            <div class="case5" data-case="4"></div>
+            <div class="case6" data-case="5"></div>
+          </section>
+          <section class="colon3">
+            <div class="case7" data-case="6"></div>
+            <div class="case8" data-case="7"></div>
+            <div class="case9" data-case="8"></div>
+          </section>
+        </section>
+        <div class="groupScore">
+          <h3 class="score_player1_text">
+            Score joueur 1 : <span class="score_player1">0</span>
+          </h3>
+          <!-- MODIFICATION: Texte changera dynamiquement -->
+          <h3 class="score_player2_text">
+            Score joueur 2 : <span class="score_player2">0</span>
+          </h3>
+        </div>
+      </div>
+
+      <section class="button-section">
+        <button class="button_reset" id="resetBtn">RESET</button>
+      </section>
+    </div>
+
+    <script src="/asset/js/tictactoeV2.js"></script>
+  </body>
+</html>
