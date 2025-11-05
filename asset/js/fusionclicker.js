@@ -17,7 +17,7 @@ let clickCount = 0;
 let gameInProgress = false; 
 
 // 'const' devient 'let' pour pouvoir la changer
-let gameDuration = 10; // 10s par défaut (car il est 'active' dans ton HTML)
+let gameDuration = 10; // 10s par défaut (car il est actif dans le HTML)
 
 // initialisation du score à 0 -> chargé par une fonction
 let bestScore = 0;
@@ -48,7 +48,7 @@ function loadBestScore() {
 
 /* met à jour la durée du jeu */
 function setGameDuration(duration) {
-    gameDuration = duration; // Met à jour la variable (5 ou 10)
+    gameDuration = duration; // met à jour la variable (5 ou 10)
 
     // met à jour le style des boutons
     if (duration === 5) {
