@@ -63,7 +63,7 @@ function initMusicControls() {
     if (backgroundMusic.muted) {
       boutonLogo.innerHTML = `<img src="asset/img/mute.png" alt="logo son coupé" class="logomute">`;
     } else {
-      boutonLogo.innerHTML = `<img src="asset/img/unmute.png" alt="logo son coupé" class="logomute">`;
+      boutonLogo.innerHTML = `<img src="asset/img/unmute.png" alt="logo son pas coupé" class="logomute">`;
     }
   });
 
@@ -76,7 +76,7 @@ function initMusicControls() {
       // La musique ne démarrera pas avant le premier clic sur le bouton.
       console.log("L'autoplay a été bloqué par le navigateur.");
       // On peut mettre à jour le bouton pour refléter cet état initial
-      muteButton.textContent = "🔇 Son coupé";
+      boutonLogo.innerHTML = `<img src="asset/img/mute.png" alt="logo son coupé" class="logomute">`;
     });
   }
 }
@@ -100,6 +100,13 @@ function initGameCarousel() {
       image: "asset/img/Fusionclicker.png",
       imageDesktop: "./../asset/img/Fusionclicker.png",
       link: "./../html/Fusionclicker.html",
+    },
+    {
+      name: "Dino Runner",
+      image: "asset/img/dino.svg",
+      imageDesktop: "./../asset/img/dino.png",
+      imageMobile: "./../asset/img/dino.png",
+      link: "./../html/dino-runner.html",
     },
     {
       name: "PFS",
@@ -201,7 +208,7 @@ function initGameCarousel() {
       easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
       fill: "forwards",
     });
-    return animation.finished.catch(() => { });
+    return animation.finished.catch(() => {});
   }
 
   function updateGame(nextIndex) {
@@ -219,9 +226,10 @@ function initGameCarousel() {
 
   function applyPhotoSource(currentGame) {
     const isMobile = mediaQuery.matches;
-    const source = isMobile && currentGame.imageMobile
-      ? currentGame.imageMobile
-      : currentGame.imageDesktop ?? currentGame.image;
+    const source =
+      isMobile && currentGame.imageMobile
+        ? currentGame.imageMobile
+        : currentGame.imageDesktop ?? currentGame.image;
 
     if (!source) {
       return;
@@ -231,7 +239,9 @@ function initGameCarousel() {
       photo.src = source;
     }
     photo.dataset.variant = isMobile ? "mobile" : "desktop";
-    photo.alt = `Illustration ${isMobile ? "mobile" : "desktop"} du jeu ${currentGame.name}`;
+    photo.alt = `Illustration ${isMobile ? "mobile" : "desktop"} du jeu ${
+      currentGame.name
+    }`;
   }
 
   function launchSelectedGame() {
