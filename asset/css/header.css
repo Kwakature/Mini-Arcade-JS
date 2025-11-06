@@ -20,6 +20,15 @@
   margin: 0 auto;
 }
 
+.bouton_logo {
+  background: none;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .logo {
   width: 140px;
   height: 140px;

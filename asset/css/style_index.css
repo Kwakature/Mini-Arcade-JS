@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 html,
 body {
@@ -16,7 +18,7 @@ body {
 :root {
   --bg: #0a0320;
   --neon1: #8877ff;
-  --neon2: ##6644ff;
+  --neon2: #6644ff;
   --glow-red: #ff2d2d;
   --btn: #a02a6c;
 }
@@ -264,5 +266,152 @@ body {
   .selector-photo-image {
     transition: none;
     animation: none !important;
+  }
+}
+
+/* ---- Header styles (merged from header.css to avoid extra request) ---- */
+.top-page {
+  background: linear-gradient(180deg, #1a0066 0%, #0a0033 100%);
+  box-shadow: 0 4px 20px rgba(102, 68, 255, 0.5),
+    0 0 40px rgba(136, 119, 255, 0.3);
+  margin: 20px;
+  border-radius: 100px;
+  border: 2px solid rgba(119, 102, 255, 0.3);
+}
+
+.back-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.bouton_logo {
+  background: none;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 15px rgba(136, 119, 255, 0.6));
+}
+
+.site-title {
+  font-family: "Sixtyfour", monospace;
+  font-size: 72px;
+  font-weight: 400;
+  background: linear-gradient(
+    180deg,
+    #00ddff 0%,
+    #00ccff 15%,
+    #6644ff 35%,
+    #8877ff 50%,
+    #aa99ff 65%,
+    #cc00ff 85%,
+    #9900cc 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(136, 119, 255, 0.5);
+  letter-spacing: 8px;
+  flex: 1;
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(102, 68, 255, 0.8),
+      0 0 40px rgba(136, 119, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(119, 102, 255, 1),
+      0 0 60px rgba(170, 153, 255, 0.7);
+  }
+}
+
+.logomute {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  margin: auto;
+  filter: drop-shadow(0 0 10px rgba(136, 119, 255, 0.4));
+  transition: all 0.3s ease;
+}
+
+.logomute:hover {
+  filter: drop-shadow(0 0 20px rgba(136, 119, 255, 0.8))
+    drop-shadow(0 0 30px rgba(102, 68, 255, 0.6));
+  transform: scale(1.1);
+}
+
+@media (max-width: 1024px) {
+  .top-page {
+    margin: 15px;
+    border-radius: 40px;
+    padding: 15px 30px;
+  }
+
+  .site-title {
+    font-size: 56px;
+    letter-spacing: 6px;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-page {
+    padding: 15px 20px;
+    margin: 12px;
+    border-radius: 30px;
+  }
+
+  .site-title {
+    font-size: 40px;
+    letter-spacing: 4px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logomute {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-page {
+    margin: 10px;
+    border-radius: 25px;
+  }
+
+  .site-title {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .logomute {
+    width: 60px;
+    height: 60px;
   }
 }

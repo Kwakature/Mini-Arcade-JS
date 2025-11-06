@@ -1,39 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  injectHeader();
+  initMusicControls();
   initGameCarousel();
 });
 
-function injectHeader() {
-  fetch("/html/header.html")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur réseau lors de la récupération du header");
-      }
-      return response.text();
-    })
-    .then((data) => {
-      const placeholder = document.querySelector("#header-placeholder");
-      if (placeholder) {
-        placeholder.innerHTML = data;
-
-        // C'EST LA CORRECTION PRINCIPALE :
-        // On appelle la fonction de musique ICI,
-        // maintenant que le header est dans la page.
-        initMusicControls();
-      }
-    })
-    .catch((error) => {
-      console.error("Erreur lors du chargement du header:", error);
-      const placeholder = document.querySelector("#header-placeholder");
-      if (placeholder) {
-        placeholder.innerHTML = "<p>Impossible de charger l'en-tête.</p>";
-      }
-    });
-}
-
 /**
  * Initialise les contrôles de la musique de fond.
- * Cette fonction est appelée APRES l'injection du header.
+ * Fonctionne que l'en-tête soit statique ou injecté dynamiquement.
  */
 function initMusicControls() {
   // 1. Sélectionne le bouton et l'audio par leur ID
@@ -47,6 +19,14 @@ function initMusicControls() {
   }
 
   // 2. Ajoute un "écouteur d'événement" sur le bouton
+  const updateButtonIcon = () => {
+    const isMuted = backgroundMusic.muted;
+    boutonLogo.innerHTML = `<img src="asset/img/${
+      isMuted ? "mute" : "unmute"
+    }.png" alt="logo son ${isMuted ? "coupé" : "pas coupé"}" class="logomute">`;
+    boutonLogo.setAttribute("aria-pressed", String(!isMuted));
+  };
+
   boutonLogo.addEventListener("click", () => {
     // 3. Logique pour couper/remettre le son
 
@@ -60,11 +40,7 @@ function initMusicControls() {
     backgroundMusic.muted = !backgroundMusic.muted;
 
     // 4. Met à jour le texte du bouton pour refléter le nouvel état
-    if (backgroundMusic.muted) {
-      boutonLogo.innerHTML = `<img src="asset/img/mute.png" alt="logo son coupé" class="logomute">`;
-    } else {
-      boutonLogo.innerHTML = `<img src="asset/img/unmute.png" alt="logo son pas coupé" class="logomute">`;
-    }
+    updateButtonIcon();
   });
 
   // --- Note sur l'autoplay ---
@@ -76,9 +52,12 @@ function initMusicControls() {
       // La musique ne démarrera pas avant le premier clic sur le bouton.
       console.log("L'autoplay a été bloqué par le navigateur.");
       // On peut mettre à jour le bouton pour refléter cet état initial
-      boutonLogo.innerHTML = `<img src="asset/img/mute.png" alt="logo son coupé" class="logomute">`;
+      backgroundMusic.muted = true;
+      updateButtonIcon();
     });
   }
+
+  updateButtonIcon();
 }
 
 function initGameCarousel() {
