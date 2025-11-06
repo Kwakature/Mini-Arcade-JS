@@ -8,7 +8,8 @@
 }
 
 body {
-  background-color: #0a0320;
+  background: linear-gradient(135deg, #0a0033 0%, #1a0066 50%, #0f0a33 100%);
+  min-height: 100vh;
   font-family: "Sixtyfour", sans-serif;
 }
 
@@ -19,32 +20,33 @@ body {
   justify-content: flex-start;
 }
 
-/* Bouton rétro doux */
+/* Bouton rétro bleu-violet */
 .return_button,
 .button_reset {
   font-family: "Sixtyfour", sans-serif;
   font-size: 16px;
-  color: #a8e6cf;
-  background-color: #1b1b1b;
-  border: 3px solid #a8e6cf;
+  color: #00ddff;
+  background-color: #1a0033;
+  border: 3px solid #00ddff;
   padding: 18px 36px;
   letter-spacing: 1px;
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(168, 230, 207, 0.7),
-    inset 0 0 10px rgba(168, 230, 207, 0.3);
-  text-shadow: 0 0 6px rgba(168, 230, 207, 0.8);
+  box-shadow: 0 0 10px rgba(0, 221, 255, 0.7),
+    inset 0 0 10px rgba(0, 221, 255, 0.3);
+  text-shadow: 0 0 6px rgba(0, 221, 255, 0.8);
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-/* Effet hover – couleur changeante pastel */
+/* Effet hover – magenta/violet */
 .return_button:hover,
 .button_reset:hover {
-  color: #fd0f0f;
-  border-color: #ff1e1e;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8),
-    inset 0 0 10px rgba(250, 20, 20, 0.4);
-  text-shadow: 0 0 6px rgba(255, 0, 0, 0.8);
+  color: #cc00ff;
+  border-color: #dd00ff;
+  box-shadow: 0 0 15px rgba(204, 0, 255, 0.8),
+    inset 0 0 10px rgba(221, 0, 255, 0.4);
+  text-shadow: 0 0 6px rgba(204, 0, 255, 0.8);
+  transform: scale(1.05);
 }
 
 /* Container principal du jeu */
@@ -61,9 +63,12 @@ body {
 .game-title {
   font-family: "Sixtyfour", sans-serif;
   font-size: 48px;
-  color: #a8e6cf;
-  text-shadow: 0 0 20px rgba(168, 230, 207, 0.8),
-    0 0 40px rgba(168, 230, 207, 0.5);
+  background: linear-gradient(180deg, #00ddff 0%, #6644ff 50%, #cc00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(102, 68, 255, 0.8),
+    0 0 40px rgba(136, 119, 255, 0.5);
   letter-spacing: 8px;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -71,12 +76,12 @@ body {
 @keyframes pulse {
   0%,
   100% {
-    text-shadow: 0 0 20px rgba(168, 230, 207, 0.8),
-      0 0 40px rgba(168, 230, 207, 0.5);
+    text-shadow: 0 0 20px rgba(102, 68, 255, 0.8),
+      0 0 40px rgba(136, 119, 255, 0.5);
   }
   50% {
-    text-shadow: 0 0 30px rgba(168, 230, 207, 1),
-      0 0 60px rgba(168, 230, 207, 0.7);
+    text-shadow: 0 0 30px rgba(119, 102, 255, 1),
+      0 0 60px rgba(170, 153, 255, 0.7);
   }
 }
 
@@ -91,10 +96,12 @@ body {
 .game {
   display: flex;
   gap: 15px;
-  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  background: radial-gradient(circle at center, #0a0033 0%, #000 100%);
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 0 40px rgba(168, 230, 207, 0.2);
+  border: 2px solid rgba(102, 68, 255, 0.3);
+  box-shadow: 0 0 40px rgba(102, 68, 255, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.7);
 }
 
 /* Colonnes */
@@ -110,11 +117,11 @@ body {
 .game div[class^="case"] {
   width: 120px;
   height: 120px;
-  background-color: #1b1b1b;
-  border: 3px solid #a8e6cf;
+  background: linear-gradient(145deg, #0a0033, #05001a);
+  border: 3px solid #6644ff;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(168, 230, 207, 0.7),
-    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  box-shadow: 0 0 15px rgba(102, 68, 255, 0.7),
+    inset 0 0 10px rgba(102, 68, 255, 0.2);
   transition: all 0.25s ease;
   cursor: pointer;
   display: flex;
@@ -126,16 +133,17 @@ body {
 
 /* Effet hover sur une case */
 .game div[class^="case"]:hover {
-  border-color: #ffd3b6;
-  box-shadow: 0 0 18px rgba(255, 211, 182, 0.8),
-    inset 0 0 10px rgba(255, 211, 182, 0.3);
+  border-color: #8877ff;
+  box-shadow: 0 0 18px rgba(136, 119, 255, 0.8),
+    inset 0 0 10px rgba(136, 119, 255, 0.3);
   transform: scale(1.05);
+  background: linear-gradient(145deg, #1a0066, #0a0033);
 }
 
 /* Effet de clic */
 .game div[class^="case"]:active {
   transform: scale(0.95);
-  box-shadow: 0 0 10px rgba(255, 211, 182, 0.5) inset;
+  box-shadow: 0 0 10px rgba(136, 119, 255, 0.5) inset;
 }
 
 /* Images dans les cases */
@@ -145,6 +153,7 @@ body {
   object-fit: contain;
   pointer-events: none;
   user-select: none;
+  filter: drop-shadow(0 0 10px rgba(136, 119, 255, 0.5));
 }
 
 /* Styles des joueurs */
@@ -157,26 +166,27 @@ body {
 .player {
   font-family: "Sixtyfour", sans-serif;
   font-size: 24px;
-  color: #a8e6cf;
-  text-shadow: 0 0 10px rgba(168, 230, 207, 0.6);
+  color: #6644ff;
+  text-shadow: 0 0 10px rgba(102, 68, 255, 0.6);
   padding: 15px 25px;
-  background-color: #1b1b1b;
-  border: 3px solid #a8e6cf;
+  background: linear-gradient(145deg, #0a0033, #05001a);
+  border: 3px solid #6644ff;
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(168, 230, 207, 0.5),
-    inset 0 0 10px rgba(168, 230, 207, 0.2);
+  box-shadow: 0 0 10px rgba(102, 68, 255, 0.5),
+    inset 0 0 10px rgba(102, 68, 255, 0.2);
   transition: all 0.3s ease;
   text-align: center;
   min-width: 200px;
 }
 
 .player.active {
-  color: #ffd3b6;
-  border-color: #ffd3b6;
-  box-shadow: 0 0 20px rgba(255, 211, 182, 0.8),
-    inset 0 0 10px rgba(255, 211, 182, 0.3);
-  text-shadow: 0 0 10px rgba(255, 211, 182, 0.8);
+  color: #00ddff;
+  border-color: #00ddff;
+  box-shadow: 0 0 20px rgba(0, 221, 255, 0.8),
+    inset 0 0 10px rgba(0, 221, 255, 0.3);
+  text-shadow: 0 0 10px rgba(0, 221, 255, 0.8);
   transform: scale(1.1);
+  background: linear-gradient(145deg, #1a0066, #0a0033);
 }
 
 /* Section bouton reset */
@@ -187,8 +197,28 @@ body {
 /* texte de score */
 .score_player1_text,
 .score_player2_text {
-  color: white;
+  color: #8877ff;
   margin: 20px;
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(136, 119, 255, 0.6);
+}
+
+.score_player1_text span,
+.score_player2_text span {
+  color: #00ddff;
+  text-shadow: 0 0 10px rgba(0, 221, 255, 0.8);
+  font-weight: bold;
+}
+
+.groupScore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(145deg, #0a0033, #05001a);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(102, 68, 255, 0.4);
+  box-shadow: 0 0 15px rgba(102, 68, 255, 0.3);
 }
 
 /* Responsive */
@@ -211,5 +241,34 @@ body {
     width: 90px;
     height: 90px;
     font-size: 45px;
+  }
+
+  .game div[class^="case"] img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 24px;
+    letter-spacing: 4px;
+  }
+
+  .game div[class^="case"] {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+
+  .game div[class^="case"] img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .player {
+    font-size: 18px;
+    min-width: 150px;
+    padding: 10px 15px;
   }
 }
