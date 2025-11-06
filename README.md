@@ -1,5 +1,7 @@
 # Mini-Arcade-JS
 
+link : mini-arcade-game.netlify.app
+
 Mini-Arcade-JS rassemble plusieurs mini-jeux web (Flappy Bird, Tic Tac Toe et Fusion Clicker) dans une seule interface arcade, réalisée en HTML, CSS et JavaScript vanilla. La page d’accueil propose un carrousel responsive permettant de prévisualiser chaque jeu avant de le lancer.
 
 ## ✨ Fonctionnalités principales
