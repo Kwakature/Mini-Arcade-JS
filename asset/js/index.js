@@ -102,13 +102,6 @@ function initGameCarousel() {
       link: "./../html/Fusionclicker.html",
     },
     {
-      name: "Dino Runner",
-      image: "asset/img/dino.svg",
-      imageDesktop: "./../asset/img/dino.png",
-      imageMobile: "./../asset/img/dino.png",
-      link: "./../html/dino-runner.html",
-    },
-    {
       name: "PFS",
       image: "asset/img/PFS.png",
       imageDesktop: "./../asset/img/PFS.png",
