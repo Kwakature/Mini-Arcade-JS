@@ -1,19 +1,39 @@
-/* Palette inspirée arcade rétro */
+/* Palette PFS (néon violet/cyan) appliquée à Flappy Bird */
 :root {
-  --cabinet-blue: #0d0529;
-  --cabinet-blue-dark: #050014;
-  --cabinet-purple: #A02A6C;
-  --cabinet-cyan: #5b4bff;
-  --cabinet-magenta: #ff79c6;
-  --cabinet-green: #5BFFEA;
-  --cabinet-yellow: #FFD54F;
-  --cabinet-orange: #FFA726;
-  --screen-border: #1b0c3c;
-  --screen-glow: rgba(255, 122, 198, 0.28);
-  --button-red: #ff2d2d;
-  --button-yellow: #ffd54f;
-  --button-blue: #5b4bff;
-  --joystick-black: #12092f;
+  /* Base PFS */
+  --pfs-bg-1: #0a0033;
+  --pfs-bg-2: #1a0066;
+  --pfs-bg-3: #0f0a33;
+
+  --pfs-purple: #6644ff;
+  --pfs-purple-2: #7766ff;
+  --pfs-purple-3: #8877ff;
+
+  --pfs-cyan: #00ccff;
+  --pfs-cyan-2: #00ddff;
+  --pfs-cyan-3: #00eeff;
+
+  --pfs-magenta: #cc00ff;
+  --pfs-magenta-2: #dd00ff;
+  --pfs-magenta-3: #ee00ff;
+
+  /* Mapping ancien thème -> PFS */
+  --cabinet-blue: var(--pfs-bg-1);
+  --cabinet-blue-dark: #05001a;
+  --cabinet-purple: var(--pfs-purple-3);
+  --cabinet-cyan: var(--pfs-cyan);
+  --cabinet-magenta: var(--pfs-magenta-2);
+  --cabinet-green: var(--pfs-cyan-2);
+  --cabinet-yellow: var(--pfs-purple-3);
+
+  --screen-border: #1a0d4a;
+  --screen-glow: rgba(102, 68, 255, 0.28);
+
+  /* Boutons & ombres */
+  --button-red: var(--pfs-magenta);
+  --button-yellow: var(--pfs-cyan);
+  --button-blue: var(--pfs-purple);
+
   --shadow-deep: rgba(0, 0, 0, 0.65);
   --shadow-soft: rgba(0, 0, 0, 0.4);
 }
@@ -30,9 +50,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0A0320;
+  /* Fond PFS */
+  background: linear-gradient(135deg, var(--pfs-bg-1) 0%, var(--pfs-bg-2) 50%, var(--pfs-bg-3) 100%);
   font-family: "Sixtyfour", system-ui, sans-serif;
-  color: var(--cabinet-yellow);
+  color: var(--pfs-purple-3);
   letter-spacing: 0.08em;
   overflow: hidden;
   padding: clamp(0.75rem, 2vw, 2rem);
@@ -46,15 +67,15 @@ body::before {
   width: min(100vw, 56rem);
   max-width: 56rem;
   min-height: clamp(38rem, 92vh, 64rem);
-  background: linear-gradient(180deg, rgba(13, 5, 41, 0.96), rgba(7, 3, 25, 0.98));
-  border: 0.375rem solid rgba(7, 1, 26, 0.95);
+  background: linear-gradient(180deg, rgba(10, 0, 51, 0.96), rgba(5, 0, 26, 0.98));
+  border: 0.375rem solid rgba(10, 0, 51, 0.95);
   border-radius: 1.125rem 1.125rem 2.5rem 2.5rem;
   padding: 4rem 2rem 2.5rem;
   box-shadow:
     0 1.875rem 3.75rem var(--shadow-deep),
-    0 0 3.5rem rgba(255, 121, 198, 0.16),
-    inset 0 0 0 0.25rem rgba(255, 213, 79, 0.14),
-    inset 0 0 3.75rem rgba(160, 42, 108, 0.28);
+    0 0 3.5rem rgba(102, 68, 255, 0.22),
+    inset 0 0 0 0.25rem rgba(119, 102, 255, 0.14),
+    inset 0 0 3.75rem rgba(136, 119, 255, 0.22);
   position: relative;
   overflow: visible;
   display: flex;
@@ -67,12 +88,12 @@ body::before {
   right: 1.375rem;
   font-size: 0.75rem;
   letter-spacing: 0.16em;
-  color: var(--cabinet-yellow);
+  color: var(--pfs-purple-3);
   text-transform: uppercase;
   text-decoration: none;
   text-shadow:
-    0 0 0.625rem rgba(255, 167, 38, 0.65),
-    0 0 1.125rem rgba(255, 41, 150, 0.45);
+    0 0 0.625rem rgba(102, 68, 255, 0.75),
+    0 0 1.125rem rgba(0, 204, 255, 0.45);
   z-index: 12;
 }
 
@@ -81,7 +102,7 @@ body::before {
   position: absolute;
   inset: 1.125rem;
   border-radius: 0.75rem;
-  border: 0.0625rem solid rgba(255, 213, 79, 0.16);
+  border: 0.0625rem solid rgba(119, 102, 255, 0.25);
   pointer-events: none;
 }
 
@@ -89,11 +110,11 @@ body::before {
   position: relative;
   margin-bottom: 1.625rem;
   padding: 1.125rem 0;
-  background: linear-gradient(180deg, rgba(255, 153, 0, 0.92), rgba(160, 42, 108, 0.88));
+  background: linear-gradient(180deg, rgba(102, 68, 255, 0.92), rgba(136, 119, 255, 0.88));
   border-radius: 0.875rem 0.875rem 1.5rem 1.5rem;
   box-shadow:
-    0 0.75rem 1.875rem rgba(255, 121, 198, 0.4),
-    inset 0 0 2.5rem rgba(255, 213, 79, 0.38),
+    0 0.75rem 1.875rem rgba(102, 68, 255, 0.45),
+    inset 0 0 2.5rem rgba(119, 102, 255, 0.35),
     inset 0 0 0 0.1875rem rgba(255, 255, 255, 0.12);
   text-align: center;
 }
@@ -104,14 +125,14 @@ body::before {
   position: absolute;
   inset: 0.5rem;
   border-radius: 0.625rem 0.625rem 1.25rem 1.25rem;
-  border: 0.0625rem solid rgba(255, 213, 79, 0.22);
+  border: 0.0625rem solid rgba(136, 119, 255, 0.28);
   pointer-events: none;
 }
 
 .marquee-glow {
   position: absolute;
   inset: -1.125rem -1.5rem 100%;
-  background: radial-gradient(circle, rgba(255, 167, 38, 0.45), transparent 60%);
+  background: radial-gradient(circle, rgba(0, 204, 255, 0.45), transparent 60%);
   filter: blur(1.125rem);
   z-index: 0;
 }
@@ -121,19 +142,17 @@ body::before {
   margin: 0;
   font-size: clamp(1.2rem, 1.6vw + 1rem, 1.8rem);
   background: linear-gradient(180deg,
-      #ffd700 0%,
-      #ffed4e 15%,
-      #ff8c00 35%,
-      #ff6b35 50%,
-      #ff4500 65%,
-      #cc0000 85%,
-      #8b0000 100%);
+      #e6e1ff 0%,
+      var(--pfs-purple-3) 25%,
+      var(--pfs-purple-2) 50%,
+      var(--pfs-purple) 75%,
+      #3c2cb8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow:
-    0 0 1.25rem rgba(255, 161, 60, 0.7),
-    0 0 2rem rgba(255, 71, 171, 0.55);
+    0 0 1.25rem rgba(102, 68, 255, 0.7),
+    0 0 2rem rgba(0, 221, 255, 0.5);
   letter-spacing: 0.18em;
 }
 
@@ -141,11 +160,11 @@ body::before {
   position: relative;
   padding: 1.375rem;
   border-radius: 1.125rem;
-  background: linear-gradient(145deg, rgba(16, 6, 48, 0.96), rgba(9, 3, 30, 0.9));
+  background: linear-gradient(145deg, rgba(12, 2, 50, 0.96), rgba(7, 1, 35, 0.9));
   box-shadow:
     inset 0 0.375rem 1.125rem rgba(0, 0, 0, 0.6),
     0 1.125rem 2.1875rem rgba(0, 0, 0, 0.35),
-    0 0 2.5rem rgba(255, 121, 198, 0.2);
+    0 0 2.5rem rgba(102, 68, 255, 0.25);
   flex: 1;
   display: flex;
 }
@@ -157,8 +176,8 @@ body::before {
   border: 0.25rem solid var(--screen-border);
   background: #070019;
   box-shadow:
-    inset 0 0 2.5rem rgba(255, 121, 198, 0.18),
-    0 0 0 0.1875rem rgba(255, 167, 38, 0.38);
+    inset 0 0 2.5rem rgba(102, 68, 255, 0.22),
+    0 0 0 0.1875rem rgba(119, 102, 255, 0.35);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -182,7 +201,7 @@ body::before {
 .screen-glow {
   position: absolute;
   inset: -3.75rem;
-  background: radial-gradient(circle, rgba(255, 121, 198, 0.24), transparent 55%);
+  background: radial-gradient(circle, rgba(102, 68, 255, 0.28), transparent 55%);
   filter: blur(1.875rem);
   pointer-events: none;
 }
@@ -191,7 +210,8 @@ body::before {
   position: relative;
   aspect-ratio: 4 / 3;
   width: 100%;
-  background: radial-gradient(circle at 50% 25%, rgba(255, 121, 198, 0.28), #060018 68%);
+  /* Ciel néon PFS */
+  background: radial-gradient(circle at 50% 25%, rgba(0, 221, 255, 0.18), #060018 68%);
   overflow: hidden;
   flex: 1;
 }
@@ -200,7 +220,7 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 3, 37, 0.82), transparent 70%);
+  background: linear-gradient(180deg, rgba(10, 3, 37, 0.6), transparent 70%);
   mix-blend-mode: screen;
   pointer-events: none;
 }
@@ -208,11 +228,12 @@ body::before {
 .game-stars {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 213, 79, 0.65) 0.05rem, transparent 0.0625rem),
-    radial-gradient(rgba(255, 121, 198, 0.55) 0.05rem, transparent 0.0625rem);
+  background-image:
+    radial-gradient(rgba(136, 119, 255, 0.65) 0.05rem, transparent 0.0625rem),
+    radial-gradient(rgba(0, 221, 255, 0.45) 0.05rem, transparent 0.0625rem);
   background-size: 2rem 2rem, 2.875rem 2.875rem;
   animation: starTwinkle 6s linear infinite;
-  opacity: 0.3;
+  opacity: 0.32;
   pointer-events: none;
 }
 
@@ -243,13 +264,14 @@ body::before {
   position: absolute;
   bottom: 0;
   width: clamp(2rem, 6vw, 2.75rem);
-  background: linear-gradient(180deg, rgba(255, 167, 38, 0.9), rgba(160, 42, 108, 0.75));
-  border: 0.1875rem solid rgba(33, 6, 45, 0.8);
+  /* Tuyaux violets PFS */
+  background: linear-gradient(180deg, var(--pfs-purple) 0%, var(--pfs-purple-3) 100%);
+  border: 0.1875rem solid rgba(60, 44, 184, 0.85);
   border-radius: 0.5rem;
   box-shadow:
-    inset 0 0 0.75rem rgba(255, 255, 255, 0.2),
+    inset 0 0 0.75rem rgba(255, 255, 255, 0.08),
     0 0.625rem 1.125rem rgba(0, 0, 0, 0.45),
-    0 0 1.5rem rgba(255, 121, 198, 0.18);
+    0 0 1.5rem rgba(102, 68, 255, 0.25);
   overflow: hidden;
 }
 
@@ -259,7 +281,7 @@ body::before {
   left: -0.25rem;
   right: -0.25rem;
   height: 0.625rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(160, 42, 108, 0.8));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(102, 68, 255, 0.7));
   border-radius: 0.5rem;
   box-shadow: inset 0 0 0.375rem rgba(0, 0, 0, 0.25);
 }
@@ -298,24 +320,24 @@ body::before {
 .score-display {
   margin: 0;
   padding: 0.5rem 1.25rem;
-  background: rgba(13, 5, 41, 0.72);
+  background: rgba(10, 0, 51, 0.6);
   border-radius: 999rem;
-  border: 0.125rem solid rgba(255, 167, 38, 0.68);
-  color: var(--cabinet-yellow);
+  border: 0.125rem solid rgba(102, 68, 255, 0.7);
+  color: #e8e6ff;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   letter-spacing: 0.18em;
   text-shadow:
-    0 0 0.625rem rgba(255, 167, 38, 0.55),
-    0 0 1.25rem rgba(255, 121, 198, 0.45);
+    0 0 0.625rem rgba(102, 68, 255, 0.6),
+    0 0 1.25rem rgba(0, 221, 255, 0.45);
 }
 
 .game-hint {
   margin: clamp(0.75rem, 2vw, 1.125rem) 0 0;
   padding: 0.5rem 0.875rem;
   border-radius: 1rem;
-  border: 0.0625rem solid rgba(255, 121, 198, 0.4);
-  background: rgba(13, 5, 41, 0.78);
-  color: rgba(255, 213, 79, 0.92);
+  border: 0.0625rem solid rgba(0, 221, 255, 0.45);
+  background: rgba(10, 0, 51, 0.72);
+  color: rgba(200, 220, 255, 0.95);
   font-size: clamp(0.65rem, 1.6vw, 0.8rem);
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -334,12 +356,12 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  background: linear-gradient(180deg, rgba(13, 5, 41, 0.88), rgba(7, 3, 25, 0.96));
+  background: linear-gradient(180deg, rgba(10, 0, 51, 0.88), rgba(5, 0, 26, 0.96));
   border-radius: 1.75rem 1.75rem 2.125rem 2.125rem;
   box-shadow:
     inset 0 0 1.875rem rgba(0, 0, 0, 0.5),
     0 -0.75rem 1.875rem rgba(0, 0, 0, 0.35),
-    0 0 2.5rem rgba(255, 121, 198, 0.2);
+    0 0 2.5rem rgba(102, 68, 255, 0.25);
   position: relative;
 }
 
@@ -379,10 +401,10 @@ body::before {
   width: clamp(2.375rem, 9vw, 2.875rem);
   height: clamp(2.375rem, 9vw, 2.875rem);
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(11, 29, 62, 0.2), rgba(31, 169, 255, 0.75));
+  background: linear-gradient(135deg, rgba(10, 0, 51, 0.2), rgba(0, 221, 255, 0.75));
   box-shadow:
-    inset 0 0 0.9375rem rgba(31, 169, 255, 0.45),
-    0 0 1.5625rem rgba(31, 169, 255, 0.35);
+    inset 0 0 0.9375rem rgba(0, 221, 255, 0.45),
+    0 0 1.5625rem rgba(0, 221, 255, 0.35);
 }
 
 .button-cluster {
@@ -413,25 +435,26 @@ body::before {
   background: currentColor;
 }
 
-.control-button--red {
-  color: var(--button-red);
+/* Remap des couleurs des boutons vers PFS */
+.control-button--red { /* devient magenta */
+  color: var(--pfs-magenta);
   box-shadow:
     inset 0 0 1rem rgba(255, 255, 255, 0.35),
-    0 1rem 1.75rem rgba(255, 59, 59, 0.45);
+    0 1rem 1.75rem rgba(204, 0, 255, 0.45);
 }
 
-.control-button--yellow {
-  color: var(--button-yellow);
+.control-button--yellow { /* devient cyan */
+  color: var(--pfs-cyan);
   box-shadow:
     inset 0 0 1rem rgba(255, 255, 255, 0.35),
-    0 1rem 1.75rem rgba(255, 208, 0, 0.45);
+    0 1rem 1.75rem rgba(0, 204, 255, 0.45);
 }
 
-.control-button--blue {
-  color: var(--button-blue);
+.control-button--blue { /* reste violet */
+  color: var(--pfs-purple);
   box-shadow:
     inset 0 0 1rem rgba(255, 255, 255, 0.35),
-    0 1rem 1.75rem rgba(41, 121, 255, 0.45);
+    0 1rem 1.75rem rgba(102, 68, 255, 0.45);
 }
 
 .control-button.is-pressed {
