@@ -21,6 +21,7 @@
 }
 
 .logo {
+  -webkit-user-drag: none;
   width: 140px;
   height: 140px;
   border-radius: 50%;
@@ -64,6 +65,7 @@
 }
 
 .logomute {
+  -webkit-user-drag: none;
   width: 100px;
   height: 100px;
   cursor: pointer;
