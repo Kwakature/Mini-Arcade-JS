@@ -341,6 +341,7 @@ body {
 }
 
 /* Responsive */
+/* Responsive amélioré */
 @media (max-width: 900px) {
   .game {
     grid-template-columns: 1fr;
@@ -365,22 +366,158 @@ body {
     order: 4;
     grid-column: 1;
     gap: 20px;
+    flex-wrap: wrap;
   }
 
   .button_player button {
     width: 120px;
     height: 120px;
   }
+
+  .img_jeu {
+    width: 70%;
+  }
+
+  .choix_bot::after,
+  .choix_joueur::after,
+  .result_game::after {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .game {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .choix_bot,
+  .result_game,
+  .choix_joueur {
+    min-height: 200px;
+  }
+
+  .button_player {
+    gap: 15px;
+  }
+
+  .button_player button {
+    width: 100px;
+    height: 100px;
+  }
+
+  .button_player button.play,
+  .button_player button.retour {
+    width: 100px;
+    height: 100px;
+    font-size: 16px;
+  }
+
+  .img_jeu {
+    width: 60%;
+    padding: 10px;
+  }
+
+  .img_jeu_selected {
+    width: 150px;
+    height: 180px;
+    padding: 15px;
+  }
+
+  .choix_bot::after,
+  .choix_joueur::after {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .result_game::after {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
 }
 
 @media (max-width: 500px) {
   .button_player {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
 
   .button_player button {
-    width: 140px;
-    height: 140px;
+    width: 90px;
+    height: 90px;
+  }
+
+  .button_player button.play,
+  .button_player button.retour {
+    width: 90px;
+    height: 90px;
+    font-size: 14px;
+  }
+
+  .choix_bot,
+  .result_game,
+  .choix_joueur {
+    min-height: 150px;
+  }
+
+  .img_jeu_selected {
+    width: 120px;
+    height: 150px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .game {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .button_player {
+    gap: 8px;
+  }
+
+  .button_player button {
+    width: 75px;
+    height: 75px;
+    border-radius: 15px;
+  }
+
+  .button_player button.play,
+  .button_player button.retour {
+    width: 75px;
+    height: 75px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .img_jeu {
+    width: 55%;
+    padding: 8px;
+  }
+
+  .choix_bot,
+  .result_game,
+  .choix_joueur {
+    min-height: 120px;
+  }
+
+  .img_jeu_selected {
+    width: 100px;
+    height: 120px;
+    padding: 8px;
+  }
+
+  .choix_bot::after,
+  .choix_joueur::after,
+  .result_game::after {
+    font-size: 12px;
+    letter-spacing: 1px;
   }
 }
