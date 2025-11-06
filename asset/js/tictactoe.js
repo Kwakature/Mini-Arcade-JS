@@ -14,6 +14,7 @@ const affplayer2 = document.querySelector(".player2");
 const score1 = document.querySelector(".score_player1");
 const score2 = document.querySelector(".score_player2");
 const titlepage = document.querySelector(".game-title");
+const cacher = document.querySelector(".cacher");
 
 let player1 = true;
 let player2 = false;
@@ -242,6 +243,10 @@ buttonReset.addEventListener("click", () => {
   init();
   resetScore();
   titlepage.innerHTML = `TIC TAC TOE`;
+});
+
+cacher.addEventListener("click", () => {
+  window.location.href = "./../../html/tictactoeV2.html";
 });
 
 function init() {
