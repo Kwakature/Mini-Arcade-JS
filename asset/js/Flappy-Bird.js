@@ -1,52 +1,53 @@
 // Exécute le code quand le document est chargé
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Sélection des éléments HTML principaux du jeu
-  const screen = document.querySelector("#gameScreen"); // zone du jeu
-  const bird = document.querySelector("#bird"); // l’oiseau
-  const jumpButton = document.querySelector("#jumpButton"); // bouton pour sauter
-  const pipeContainer = document.querySelector("#pipeContainer"); // conteneur des tuyaux
-  const scoreDisplay = document.querySelector("#scoreDisplay"); // affichage du score
-  const hint = document.querySelector("#gameHint"); // texte d’aide (ex: “Appuie sur espace”)
 
-  // Vérifie que tous les éléments existent avant de lancer le jeu
+  const screen = document.querySelector("#gameScreen"); 
+  const bird = document.querySelector("#bird"); 
+  const jumpButton = document.querySelector("#jumpButton");
+  const pipeContainer = document.querySelector("#pipeContainer");
+  const scoreDisplay = document.querySelector("#scoreDisplay");
+  const hint = document.querySelector("#gameHint"); 
+
+  
   if (!screen || !bird || !jumpButton || !pipeContainer || !scoreDisplay || !hint) {
     return;
   }
 
-  // === CONSTANTES DU JEU ===
-  const GRAVITY = 0.45;         // force de la gravité
-  const JUMP_VELOCITY = -6.2;   // force du saut
-  const MAX_FALL = 8;           // vitesse maximale de chute
-  const PIPE_COUNT = 100;       // nombre total de tuyaux générés à l’avance
-  const PIPE_SPACING_MIN = 180; // espace minimal entre deux tuyaux
-  const GAP_MIN = 0.26;         // ouverture minimale entre les tuyaux (en pourcentage de la hauteur)
-  const GAP_MAX = 0.32;         // ouverture maximale
-  const GAP_MARGIN = 0.18;      // marge pour éviter que le trou soit trop haut ou trop bas
+  // CONSTANTES DU JEU 
 
-  // === VARIABLES DU JEU ===
-  let birdY = 0;         // position verticale du bird
-  let velocity = 0;       // vitesse actuelle du bird
-  let running = false;    // indique si la partie est en cours
-  let gameOver = false;   // indique si la partie est terminée
-  let score = 0;          // score actuel
-  let lastFrame = 0;      // temps de la dernière image
-  let idleWave = 0;       // animation du bird quand il ne joue pas
-  let godMode = false;    // mode invincible (aucune collision)
-  let funSpeedMode = false;      // mode “vitesse boostée” après 3 appuis sur V
+  const GRAVITY = 0.45;         
+  const JUMP_VELOCITY = -6.2;   
+  const MAX_FALL = 8;          
+  const PIPE_COUNT = 100;       
+  const PIPE_SPACING_MIN = 180;
+  const GAP_MIN = 0.26;         
+  const GAP_MAX = 0.32;        
+  const GAP_MARGIN = 0.18;     
+
+  // VARIABLES DU JEU
+  let birdY = 0;         
+  let velocity = 0;       
+  let running = false;   
+  let gameOver = false;  
+  let score = 0;          
+  let lastFrame = 0;      
+  let idleWave = 0;       
+  let godMode = false;    
+  let funSpeedMode = false;      
   let funSpeedPressCount = 0;    // nombre d'appuis pour débloquer la vitesse x20
   let funSpeedMultiplier = 1;    // multiplicateur de vitesse courant
-  let hintTimerId = null;   // timer pour cacher automatiquement les messages
+  let hintTimerId = null;   
 
   // Données liées à la scène
-  let bounds = { min: 0, max: 0 };     // limites haut/bas du bird
-  let pipeSpacingMin = PIPE_SPACING_MIN; // espacement horizontal minimal entre les tuyaux
-  let pipeSpacingMax = PIPE_SPACING_MIN + 80; // espacement horizontal maximal entre les tuyaux
-  let pipeSpeed = 2.2;               // vitesse de défilement des tuyaux
-  let nextPipeX = 0;               // position du prochain tuyau à générer
-  const pipes = [];                // tableau contenant les tuyaux
+  let bounds = { min: 0, max: 0 };     
+  let pipeSpacingMin = PIPE_SPACING_MIN; 
+  let pipeSpacingMax = PIPE_SPACING_MIN + 80; 
+  let pipeSpeed = 2.2;               
+  let nextPipeX = 0;              
+  const pipes = [];     
 
-  // === GESTION DU SON ===
+  // GESTION DU SON 
   const audioState = {
     context: null,
     masterGain: null,
@@ -109,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Création du contexte audio
     const context = new AudioContextClass();
     const masterGain = context.createGain();
-    masterGain.gain.value = 0.10; // volume général
+    masterGain.gain.value = 0.10;
     masterGain.connect(context.destination);
     audioState.context = context;
     audioState.masterGain = masterGain;
@@ -315,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
     playJumpBeep();
   };
 
-  // Boucle principale du jeu (60 FPS)
+  // Boucle principale du jeu
   const loop = (time) => {
     requestAnimationFrame(loop);
     if (!lastFrame) { lastFrame = time; return; }
@@ -376,10 +377,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Démarre le jeu
   resetGame();
   requestAnimationFrame(loop);
-
-
-
-
 
 
 
