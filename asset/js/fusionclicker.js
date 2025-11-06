@@ -132,7 +132,7 @@ function endGame() {
 
     // afficher le score final (nbr de clics)
     // 'GAME_DURATION' devient 'gameDuration'
-    scoreLabel.childNodes[0].nodeValue = `Score (${gameDuration}s) : `;
+    scoreLabel.childNodes[0].nodeValue = `Score (${gameDuration}s) : `; // interpolation
     scoreDisplay.textContent = clickCount;
 
     // 4. MAJ le meilleur score
@@ -154,3 +154,35 @@ clickButton.addEventListener('click', handleUserClick);
 backButton.addEventListener('click', goBack);
 time5sButton.addEventListener('click', () => setGameDuration(5));
 time10sButton.addEventListener('click', () => setGameDuration(10));
+
+
+/* ajout de la barre espace comme clicker */
+
+document.addEventListener('keydown', (event) => {
+    // on vérifie si la touche appuyée est Espace ("Space" ou " ")
+    if (event.code === 'Space' || event.key === ' ') {
+        
+        // empêche le comportement par défaut (scroller la page vers le bas)
+        event.preventDefault();
+
+        // si la touche n'était pas déjà enfoncée (évite l'auto-clic en restant appuyé)
+        if (!event.repeat) {
+            if (!gameInProgress) {
+                // si le jeu n'a pas commencé, on le lance !
+                startGame();
+            } else {
+                // si le jeu est en cours, on simule un clic
+                handleUserClick();
+                // ajoute l'effet visuel d'enfoncement
+                clickButton.classList.add('active-press');
+            }
+        }
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    // quand la barre Espace est relâchée on enlève l'effet visuel
+    if (event.code === 'Space' || event.key === ' ') {
+        clickButton.classList.remove('active-press');
+    }
+});
