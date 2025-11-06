@@ -38,6 +38,14 @@ body {
   transition: all 0.25s ease;
 }
 
+.cacher {
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+  text-align: end;
+}
+
 /* Effet hover – magenta/violet */
 .return_button:hover,
 .button_reset:hover {
@@ -61,6 +69,7 @@ body {
 
 /* Titre du jeu */
 .game-title {
+  text-align: center;
   font-family: "Sixtyfour", sans-serif;
   font-size: 48px;
   background: linear-gradient(180deg, #00ddff 0%, #6644ff 50%, #cc00ff 100%);
