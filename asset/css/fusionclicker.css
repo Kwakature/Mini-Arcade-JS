@@ -7,6 +7,10 @@ body {
   height: 100%;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 /* Variables de couleur basées sur PFS.css 
   Source: PFS.css
 */

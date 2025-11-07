@@ -380,6 +380,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
   // === MODES SECRETS ===
   // God mode : Cmd/Ctrl + Shift + G
   document.addEventListener("keydown", (event) => {
