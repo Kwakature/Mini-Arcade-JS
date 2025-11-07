@@ -102,7 +102,7 @@ function initGameCarousel() {
       link: "./../html/Fusionclicker.html",
     },
     {
-      name: "PFS",
+      name: "pierre feuille ciseaux",
       image: "asset/img/PFS.png",
       imageDesktop: "./../asset/img/PFS.png",
       link: "./../../html/PFS.html",
